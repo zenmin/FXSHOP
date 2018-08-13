@@ -1,2 +1,2 @@
 # FXSHOP
-基于SpringBoot+SpringCloud微服务的商城项目
+基于SpringCloud微服务的商城项目

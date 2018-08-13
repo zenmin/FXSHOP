@@ -1,0 +1,30 @@
+{
+  "name": "kit_admin",
+  "version": "1.0.3",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.oschina.net/besteasyteam/kit_admin.git"
+  },
+  "homepage": "http://kit/zhengjinfan.cn",
+  "author": "Van",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-header": "^1.8.9",
+    "gulp-if": "^2.0.2",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0",
+    "gulp-zip": "^4.0.0",
+    "minimist": "^1.2.0",
+    "pump": "^1.0.2"
+  }
+}

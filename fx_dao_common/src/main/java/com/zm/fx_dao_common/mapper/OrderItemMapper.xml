@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zm.fx_dao_common.dao.OrderItemMapper">
+  <resultMap id="BaseResultMap" type="com.zm.fx_dao_common.bean.OrderItem">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="orderid" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="itemid" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="itemname" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="itemdesc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="allpruce" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="num" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="oneprice" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="img" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="logisticscode" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="isreceive" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="updated" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="created" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, orderid, itemid, itemname, itemdesc, allpruce, num, oneprice, img, logisticscode, 
+    isreceive, updated, created
+  </sql>
+  <select id="selectByExample" parameterType="com.zm.fx_dao_common.bean.OrderItemExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_order_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_order_item
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_order_item
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zm.fx_dao_common.bean.OrderItemExample">
+    delete from tb_order_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zm.fx_dao_common.bean.OrderItem">
+    insert into tb_order_item (id, orderid, itemid, 
+      itemname, itemdesc, allpruce, 
+      num, oneprice, img, 
+      logisticscode, isreceive, updated, 
+      created)
+    values (#{id,jdbcType=BIGINT}, #{orderid,jdbcType=BIGINT}, #{itemid,jdbcType=BIGINT}, 
+      #{itemname,jdbcType=VARCHAR}, #{itemdesc,jdbcType=VARCHAR}, #{allpruce,jdbcType=DOUBLE}, 
+      #{num,jdbcType=INTEGER}, #{oneprice,jdbcType=DOUBLE}, #{img,jdbcType=VARCHAR}, 
+      #{logisticscode,jdbcType=VARCHAR}, #{isreceive,jdbcType=INTEGER}, #{updated,jdbcType=TIMESTAMP}, 
+      #{created,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zm.fx_dao_common.bean.OrderItem">
+    insert into tb_order_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderid != null">
+        orderid,
+      </if>
+      <if test="itemid != null">
+        itemid,
+      </if>
+      <if test="itemname != null">
+        itemname,
+      </if>
+      <if test="itemdesc != null">
+        itemdesc,
+      </if>
+      <if test="allpruce != null">
+        allpruce,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="oneprice != null">
+        oneprice,
+      </if>
+      <if test="img != null">
+        img,
+      </if>
+      <if test="logisticscode != null">
+        logisticscode,
+      </if>
+      <if test="isreceive != null">
+        isreceive,
+      </if>
+      <if test="updated != null">
+        updated,
+      </if>
+      <if test="created != null">
+        created,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderid != null">
+        #{orderid,jdbcType=BIGINT},
+      </if>
+      <if test="itemid != null">
+        #{itemid,jdbcType=BIGINT},
+      </if>
+      <if test="itemname != null">
+        #{itemname,jdbcType=VARCHAR},
+      </if>
+      <if test="itemdesc != null">
+        #{itemdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="allpruce != null">
+        #{allpruce,jdbcType=DOUBLE},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="oneprice != null">
+        #{oneprice,jdbcType=DOUBLE},
+      </if>
+      <if test="img != null">
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticscode != null">
+        #{logisticscode,jdbcType=VARCHAR},
+      </if>
+      <if test="isreceive != null">
+        #{isreceive,jdbcType=INTEGER},
+      </if>
+      <if test="updated != null">
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zm.fx_dao_common.bean.OrderItemExample" resultType="java.lang.Long">
+    select count(*) from tb_order_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_order_item
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderid != null">
+        orderid = #{record.orderid,jdbcType=BIGINT},
+      </if>
+      <if test="record.itemid != null">
+        itemid = #{record.itemid,jdbcType=BIGINT},
+      </if>
+      <if test="record.itemname != null">
+        itemname = #{record.itemname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemdesc != null">
+        itemdesc = #{record.itemdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.allpruce != null">
+        allpruce = #{record.allpruce,jdbcType=DOUBLE},
+      </if>
+      <if test="record.num != null">
+        num = #{record.num,jdbcType=INTEGER},
+      </if>
+      <if test="record.oneprice != null">
+        oneprice = #{record.oneprice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.img != null">
+        img = #{record.img,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logisticscode != null">
+        logisticscode = #{record.logisticscode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isreceive != null">
+        isreceive = #{record.isreceive,jdbcType=INTEGER},
+      </if>
+      <if test="record.updated != null">
+        updated = #{record.updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.created != null">
+        created = #{record.created,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_order_item
+    set id = #{record.id,jdbcType=BIGINT},
+      orderid = #{record.orderid,jdbcType=BIGINT},
+      itemid = #{record.itemid,jdbcType=BIGINT},
+      itemname = #{record.itemname,jdbcType=VARCHAR},
+      itemdesc = #{record.itemdesc,jdbcType=VARCHAR},
+      allpruce = #{record.allpruce,jdbcType=DOUBLE},
+      num = #{record.num,jdbcType=INTEGER},
+      oneprice = #{record.oneprice,jdbcType=DOUBLE},
+      img = #{record.img,jdbcType=VARCHAR},
+      logisticscode = #{record.logisticscode,jdbcType=VARCHAR},
+      isreceive = #{record.isreceive,jdbcType=INTEGER},
+      updated = #{record.updated,jdbcType=TIMESTAMP},
+      created = #{record.created,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zm.fx_dao_common.bean.OrderItem">
+    update tb_order_item
+    <set>
+      <if test="orderid != null">
+        orderid = #{orderid,jdbcType=BIGINT},
+      </if>
+      <if test="itemid != null">
+        itemid = #{itemid,jdbcType=BIGINT},
+      </if>
+      <if test="itemname != null">
+        itemname = #{itemname,jdbcType=VARCHAR},
+      </if>
+      <if test="itemdesc != null">
+        itemdesc = #{itemdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="allpruce != null">
+        allpruce = #{allpruce,jdbcType=DOUBLE},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="oneprice != null">
+        oneprice = #{oneprice,jdbcType=DOUBLE},
+      </if>
+      <if test="img != null">
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticscode != null">
+        logisticscode = #{logisticscode,jdbcType=VARCHAR},
+      </if>
+      <if test="isreceive != null">
+        isreceive = #{isreceive,jdbcType=INTEGER},
+      </if>
+      <if test="updated != null">
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zm.fx_dao_common.bean.OrderItem">
+    update tb_order_item
+    set orderid = #{orderid,jdbcType=BIGINT},
+      itemid = #{itemid,jdbcType=BIGINT},
+      itemname = #{itemname,jdbcType=VARCHAR},
+      itemdesc = #{itemdesc,jdbcType=VARCHAR},
+      allpruce = #{allpruce,jdbcType=DOUBLE},
+      num = #{num,jdbcType=INTEGER},
+      oneprice = #{oneprice,jdbcType=DOUBLE},
+      img = #{img,jdbcType=VARCHAR},
+      logisticscode = #{logisticscode,jdbcType=VARCHAR},
+      isreceive = #{isreceive,jdbcType=INTEGER},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      created = #{created,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

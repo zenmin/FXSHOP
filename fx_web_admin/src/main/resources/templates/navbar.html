@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Navbar组件</title>
+    <link rel="stylesheet" href="./plugins/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="./build/css/doc.css" media="all">
+</head>
+
+<body>
+<div class="kit-doc">
+    <blockquote class="layui-elem-quote">Navbar组件是基于<a href="http://www.layui.com/doc/element/nav.html" target="_blank">layui导航菜单</a>
+        封装的组件，配合
+        <a href="tab.html">tab组件</a>能完成多开页面的操作
+    </blockquote>
+    <div class="kit-doc-title">
+        <fieldset>
+            <legend><a name="blockquote">设置绑定方式</a></legend>
+        </fieldset>
+    </div>
+    <p>提供两种设置方式(设置data属性 和 kit-target 属性),以下两种方式都能正确解析[详细请参考index.html]</p>
+    <table class="layui-table">
+        <colgroup>
+            <col width="100">
+            <col>
+        </colgroup>
+        <tbody>
+        <tr>
+            <td>方式一</td>
+            <td>
+                        <pre class="layui-code">
+//data-url //跳转地址
+//data-icon //图标，支持layui图片和fa图标
+//data-title //标题
+//data-id //唯一id
+Example:
+<pre class="layui-code">
+data-url="form.html" data-icon="fa-user" data-title="表单" kit-target data-id='2' kit-target</pre></pre>
+            </td>
+        </tr>
+        <tr>
+            <td>方式二</td>
+            <td>
+                        <pre class="layui-code">
+kit-target data-options="{url:'test.html',icon:'fa-user',title:'表格',id:'1'}"</pre>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="kit-doc-title">
+        <fieldset>
+            <legend><a name="blockquote">渲染方式</a></legend>
+        </fieldset>
+    </div>
+    <p> 该组件提供了三种渲染方式 </p>
+    <table class="layui-table">
+        <colgroup>
+            <col width="180">
+            <col width="230">
+            <col width="100">
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>渲染方式</th>
+            <th>方法</th>
+            <th>备注</th>
+            <th>详细说明</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>服务端渲染后绑定</td>
+            <td>调用navbar.bind()方法</td>
+            <td>已实现</td>
+            <td>此方法需在dom元素渲染完成后执行
+                <p>Example:</p>
+                <pre class="layui-code">
+//注：需在容器内添加属性 kit-navbar或指定容器,example:navbar.set({elem:'#container'});
+navbar.bind(function(data) {
+    t.tabAdd(data);//这个方法为tab组件提供的方法
+});
+data的数据结构:
+data.icon;//图标，支持layui图标和fontawesome图标
+data.id;//id,唯一标识
+data.title;//标题
+data.url;//跳转地址</pre>
+            </td>
+        </tr>
+        <tr>
+            <td>异步渲染方式(AJAX)</td>
+            <td>通过设置url参数组件内部渲染</td>
+            <td>已实现</td>
+            <td>设置remote参数，调用render方法</td>
+        </tr>
+        <tr>
+            <td>本地数据渲染方式</td>
+            <td>通过设置data参数组件内部渲染</td>
+            <td>已实现</td>
+            <td>设置data参数，调用render方法</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="kit-doc-title">
+        <fieldset>
+            <legend><a name="blockquote">可用的方法</a></legend>
+        </fieldset>
+    </div>
+    <table class="layui-table">
+        <colgroup>
+            <col width="150">
+            <col width="200">
+            <col width="150">
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>名称</th>
+            <th>参数</th>
+            <th>返回值</th>
+            <th>描述</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>set(options)</td>
+            <td><a href="#options">options</a>/object</td>
+            <td>this/object</td>
+            <td>配置一些全局参数,返回当前navbar对象，以便于链式调用
+                <p>Example:</p>
+                <pre class="layui-code">
+navbar.set({
+    elem:'#navbarContainer',
+    url:''
+});</pre>
+            </td>
+        </tr>
+        <tr>
+            <td>bind(callback)</td>
+            <td>callback/function(data)</td>
+            <td>void</td>
+            <td>绑定a标签的点击事件
+                <p>Example:</p>
+                <pre class="layui-code">
+navbar.bind(function(data) {
+    t.tabAdd(data);//这个方法为tab组件提供的方法
+});</pre>
+            </td>
+        </tr>
+        <tr>
+            <td>render(callback)</td>
+            <td>callback/function(data)</td>
+            <td>void</td>
+            <td>渲染navbar
+                <p>Example:</p>
+                <pre class="layui-code">
+    navbar.render(function(data) {
+        t.tabAdd(data);//这个方法为tab组件提供的方法
+    });</pre>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="kit-doc-title">
+        <fieldset>
+            <legend><a name="blockquote" id="options">options参数说明</a></legend>
+        </fieldset>
+    </div>
+    <table class="layui-table">
+        <colgroup>
+            <col width="150">
+            <col width="150">
+            <col width="150">
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>名称</th>
+            <th>类型</th>
+            <td>默认值</td>
+            <th>描述</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>elem</td>
+            <td>string</td>
+            <td>undefined</td>
+            <td>容器DOM，支持id选择器和类选择器<br/>(如果elem为undefined就必须在容器标签添加kit-navbar属性，否则会抛异常)</td>
+        </tr>
+        <tr>
+            <td>filter</td>
+            <td>string</td>
+            <td>kitNavbar</td>
+            <td>过滤器名称</td>
+        </tr>
+        <tr>
+            <td>data</td>
+            <td>object</td>
+            <td>undefined</td>
+            <td>本地数据源，有特定的数据结构，<a href="#data">点击我查看</a></td>
+        </tr>
+        <tr>
+            <td>remote</td>
+            <td>object</td>
+            <td> 详细看描述 url:undefined,type:'GET',jsonp:false</td>
+            <td>
+                        <pre class="layui-code">
+navbar.set{
+    remote:{
+        url: 'xx/api', //接口地址
+        type: 'POSST', //请求方式
+        jsonp: false //跨域
+    }
+}</pre>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="kit-doc-title">
+        <fieldset>
+            <legend><a name="blockquote" id="data">Data数据结构(注：当前只支持两级菜单)</a></legend>
+        </fieldset>
+    </div>
+    <blockquote class="layui-elem-quote">
+            <pre class="layui-code">
+//图标支持<a href="http://www.layui.com/doc/element/icon.html" target="_blank">layui图标</a>和<a
+                    href="http://www.fontawesome.com.cn/faicons/" target="_blank">fontawesome字体图标</a>
+[{
+    "id": "1",
+    "title": "基本元素",
+    "icon": "fa-cubes",
+    "spread": true, //如果为true则展开 (v1.0.3可用)
+    "children": [{
+        "id": "7",
+        "title": "表格",
+        "icon": "&#xe6c6;",
+        "url": "test.html"
+    }, {
+        "id": "8",
+        "title": "表单",
+        "icon": "&#xe63c;",
+        "url": "form.html"
+    }]
+}, {
+    "id": "5",
+    "title": "这是一级导航",
+    "icon": "fa-stop-circle",
+    "url": "https://www.baidu.com",
+    "spread": false
+}]</pre>
+    </blockquote>
+    <blockquote class="layui-elem-quote">这个文档就先写到这里吧，后面新增了再补充啦。</blockquote>
+</div>
+<script src="./plugins/layui/layui.js"></script>
+</body>
+
+</html>

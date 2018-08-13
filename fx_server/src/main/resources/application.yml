@@ -1,0 +1,10 @@
+server:
+  port: 8761
+eureka:
+  client:
+    register-with-eureka: false #关闭把server本身注册进去
+    fetch-registry: false #不从注册中心获取服务的信息
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
+  instance:
+    hostname: fx_server #eureka实例的主机名

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zm.fx_dao_common.dao.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.zm.fx_dao_common.bean.Order">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="userid" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="status" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="starttime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="endtime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="activity" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="allprice" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="oldprice" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="nowprice" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="payid" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="updated" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="created" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, userid, status, starttime, endtime, activity, allprice, oldprice, nowprice, payid, 
+    updated, created
+  </sql>
+  <select id="selectByExample" parameterType="com.zm.fx_dao_common.bean.OrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zm.fx_dao_common.bean.OrderExample">
+    delete from tb_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zm.fx_dao_common.bean.Order">
+    insert into tb_order (id, userid, status, 
+      starttime, endtime, activity, 
+      allprice, oldprice, nowprice, 
+      payid, updated, created
+      )
+    values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, 
+      #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, #{activity,jdbcType=VARCHAR}, 
+      #{allprice,jdbcType=DOUBLE}, #{oldprice,jdbcType=DOUBLE}, #{nowprice,jdbcType=DOUBLE}, 
+      #{payid,jdbcType=VARCHAR}, #{updated,jdbcType=TIMESTAMP}, #{created,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zm.fx_dao_common.bean.Order">
+    insert into tb_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="starttime != null">
+        starttime,
+      </if>
+      <if test="endtime != null">
+        endtime,
+      </if>
+      <if test="activity != null">
+        activity,
+      </if>
+      <if test="allprice != null">
+        allprice,
+      </if>
+      <if test="oldprice != null">
+        oldprice,
+      </if>
+      <if test="nowprice != null">
+        nowprice,
+      </if>
+      <if test="payid != null">
+        payid,
+      </if>
+      <if test="updated != null">
+        updated,
+      </if>
+      <if test="created != null">
+        created,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activity != null">
+        #{activity,jdbcType=VARCHAR},
+      </if>
+      <if test="allprice != null">
+        #{allprice,jdbcType=DOUBLE},
+      </if>
+      <if test="oldprice != null">
+        #{oldprice,jdbcType=DOUBLE},
+      </if>
+      <if test="nowprice != null">
+        #{nowprice,jdbcType=DOUBLE},
+      </if>
+      <if test="payid != null">
+        #{payid,jdbcType=VARCHAR},
+      </if>
+      <if test="updated != null">
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zm.fx_dao_common.bean.OrderExample" resultType="java.lang.Long">
+    select count(*) from tb_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_order
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.starttime != null">
+        starttime = #{record.starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endtime != null">
+        endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.activity != null">
+        activity = #{record.activity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.allprice != null">
+        allprice = #{record.allprice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.oldprice != null">
+        oldprice = #{record.oldprice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.nowprice != null">
+        nowprice = #{record.nowprice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.payid != null">
+        payid = #{record.payid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updated != null">
+        updated = #{record.updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.created != null">
+        created = #{record.created,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_order
+    set id = #{record.id,jdbcType=BIGINT},
+      userid = #{record.userid,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=INTEGER},
+      starttime = #{record.starttime,jdbcType=TIMESTAMP},
+      endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      activity = #{record.activity,jdbcType=VARCHAR},
+      allprice = #{record.allprice,jdbcType=DOUBLE},
+      oldprice = #{record.oldprice,jdbcType=DOUBLE},
+      nowprice = #{record.nowprice,jdbcType=DOUBLE},
+      payid = #{record.payid,jdbcType=VARCHAR},
+      updated = #{record.updated,jdbcType=TIMESTAMP},
+      created = #{record.created,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zm.fx_dao_common.bean.Order">
+    update tb_order
+    <set>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="starttime != null">
+        starttime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        endtime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activity != null">
+        activity = #{activity,jdbcType=VARCHAR},
+      </if>
+      <if test="allprice != null">
+        allprice = #{allprice,jdbcType=DOUBLE},
+      </if>
+      <if test="oldprice != null">
+        oldprice = #{oldprice,jdbcType=DOUBLE},
+      </if>
+      <if test="nowprice != null">
+        nowprice = #{nowprice,jdbcType=DOUBLE},
+      </if>
+      <if test="payid != null">
+        payid = #{payid,jdbcType=VARCHAR},
+      </if>
+      <if test="updated != null">
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zm.fx_dao_common.bean.Order">
+    update tb_order
+    set userid = #{userid,jdbcType=BIGINT},
+      status = #{status,jdbcType=INTEGER},
+      starttime = #{starttime,jdbcType=TIMESTAMP},
+      endtime = #{endtime,jdbcType=TIMESTAMP},
+      activity = #{activity,jdbcType=VARCHAR},
+      allprice = #{allprice,jdbcType=DOUBLE},
+      oldprice = #{oldprice,jdbcType=DOUBLE},
+      nowprice = #{nowprice,jdbcType=DOUBLE},
+      payid = #{payid,jdbcType=VARCHAR},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      created = #{created,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

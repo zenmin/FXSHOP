@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<html>
-
 <head>
     <meta charset="utf-8">
     <title>商品列表</title>
@@ -8,30 +6,16 @@
 </head>
 
 <body>
-
-<table class="layui-table" lay-data="{height:315, url:'/datas/table.json', page:true, id:'test',height: 'full-25'}"
-       lay-filter="test" id="test">
-    <thead>
-    <tr>
-        <th lay-data="{field:'id', width:80, sort: true}">ID</th>
-        <th lay-data="{field:'username', width:80}">用户名</th>
-        <th lay-data="{field:'sex', width:80, sort: true}">性别</th>
-        <th lay-data="{field:'city', width:80}">城市</th>
-        <th lay-data="{field:'sign', width:177}">签名</th>
-        <th lay-data="{field:'experience', width:80, sort: true}">积分</th>
-        <th lay-data="{field:'score', width:80, sort: true}">评分</th>
-        <th lay-data="{field:'classify', width:80}">职业</th>
-        <th lay-data="{field:'wealth', width:135, sort: true}">财富</th>
-    </tr>
-    </thead>
+<button class="layui-btn layui-btn-normal" style="margin-left: 5px;" lay-submit="" lay-filter="addbtn" id="addbtn">添加商品</button>
+<table class="layui-table" lay-filter="tabledata" id="table">
 </table>
-
-<script src="./plugins/layui/layui.js"></script>
-<script>
-    layui.use('table', function () {
-        var table = layui.table;
-    });
+<script src="/plugins/layui/js/jquery1.12.4.min.js"></script>
+<script src="/plugins/layui/layui.js"></script>
+<script src="/plugins/layui/js/shoplist.js"></script>
+<script type="text/html" id="cz">
+    <!--<a class="layui-btn" lay-event="detail">详情</a>-->
+    <a class="layui-btn " lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger " lay-event="del">删除</a>
 </script>
 </body>
-
 </html>

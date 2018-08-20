@@ -3,7 +3,7 @@
 <mapper namespace="com.zm.fx_dao_common.dao.ItemMapper">
   <resultMap id="BaseResultMap" type="com.zm.fx_dao_common.bean.Item">
     <constructor>
-      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <idArg column="id" javaType="java.lang.String" jdbcType="BIGINT" />
       <arg column="categoryid" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="tiitle" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -12,9 +12,49 @@
       <arg column="price" javaType="java.lang.Double" jdbcType="DOUBLE" />
       <arg column="num" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="status" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="updated" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="created" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="updated" javaType="java.lang.String" jdbcType="TIMESTAMP" />
+      <arg column="created" javaType="java.lang.String" jdbcType="TIMESTAMP" />
     </constructor>
+  </resultMap>
+  <resultMap id="ResultMapAndCate" type="com.zm.fx_dao_common.bean.Item">
+  <id column="tid" property="id" />
+  <result column="categoryid" property="categoryid"/>
+  <result column="tname" property="name"/>
+  <result column="tiitle" property="tiitle" />
+  <result column="describle" property="describle"/>
+  <result column="barcode" property="barcode"/>
+  <result column="price" property="price" />
+  <result column="num" property="num"/>
+  <result column="status" property="status"/>
+  <result column="updated" property="updated"/>
+  <result column="created" property="created"  />
+  <association property="itemCategory" javaType="com.zm.fx_dao_common.bean.ItemCategory">
+    <id column="cid" property="id" ></id>
+    <result property="name" column="cname"></result>
+  </association>
+</resultMap>
+  <resultMap id="ResultMapAndCateAndDetial" type="com.zm.fx_dao_common.bean.Item">
+    <id column="tid" property="id" />
+    <result column="categoryid" property="categoryid"/>
+    <result column="tname" property="name"/>
+    <result column="tiitle" property="tiitle" />
+    <result column="describle" property="describle"/>
+    <result column="barcode" property="barcode"/>
+    <result column="price" property="price" />
+    <result column="num" property="num"/>
+    <result column="status" property="status"/>
+    <result column="updated" property="updated"/>
+    <result column="created" property="created"  />
+    <association property="itemCategory" javaType="com.zm.fx_dao_common.bean.ItemCategory">
+      <id column="cid" property="id"></id>
+      <result property="name" column="cname"></result>
+      <result property="parentid" column="pid"></result>
+    </association>
+    <association property="itemDeatil" javaType="com.zm.fx_dao_common.bean.ItemDeatil">
+      <id column="did" property="id"></id>
+      <result property="itemid" column="itemid"></result>
+      <result property="bigmsg" column="dmsg"></result>
+    </association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -91,13 +131,13 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from tb_item
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from tb_item
     where id = #{id,jdbcType=BIGINT}
   </delete>
@@ -304,4 +344,39 @@
       created = #{created,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+<sql id="itemAndCate">
+   t.id as tid, categoryid, t.name as tname , tiitle, describle, barcode,price, num, t.status, t.updated, t.created,c.id as cid ,c.name as cname
+</sql>
+  <sql id="itemAndCateAndDetial">
+   t.id as tid, categoryid, t.name as tname , tiitle, describle, barcode,price, num, t.status, t.updated, t.created,c.id as cid ,c.parentid as pid,
+   c.name as cname,d.id as did,d.itemid as itemid,d.bigmsg as dmsg
+</sql>
+  <select id="findAllandCategory" parameterType="com.zm.fx_dao_common.bean.ItemExample" resultMap="ResultMapAndCate">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    *
+    from tb_item t left join tb_item_category c on c.id  = t.categoryid
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectMyPage" parameterType="com.zm.fx_dao_common.bean.ItemExample" resultMap="ResultMapAndCate">
+    select
+    <include refid="itemAndCate"></include>
+    from tb_item t left join tb_item_category c on c.id  = t.categoryid
+  </select>
+
+  <select id="selectMyPageByid" parameterType="com.zm.fx_dao_common.bean.ItemExample" resultMap="ResultMapAndCateAndDetial">
+    select
+    <include refid="itemAndCateAndDetial"></include>
+    from tb_item t LEFT JOIN tb_item_category c on t.categoryid = c.id
+    LEFT JOIN tb_item_detail d on t.id = d.itemid where t.id = #{id}
+  </select>
+
+
 </mapper>

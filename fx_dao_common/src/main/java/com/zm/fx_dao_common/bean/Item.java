@@ -2,12 +2,14 @@ package com.zm.fx_dao_common.bean;
 
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.text.SimpleDateFormat;
+
 @TableName("tb_item")
 public class Item extends Model<Item> {
-    private Long id;
+    private String id;
 
     private Long categoryid;
 
@@ -24,15 +26,44 @@ public class Item extends Model<Item> {
     private Integer num;
 
     private Integer status;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private String updated;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private String created;
 
-    private Date updated;
+    private String dmsg;
 
-    private Date created;
+    private ItemCategory itemCategory;
+
+    private ItemDeatil itemDeatil;
+
+    public String getDmsg() {
+        return dmsg;
+    }
+
+    public void setDmsg(String dmsg) {
+        this.dmsg = dmsg;
+    }
+
+    public ItemDeatil getItemDeatil() {
+        return itemDeatil;
+    }
+
+    public void setItemDeatil(ItemDeatil itemDeatil) {
+        this.itemDeatil = itemDeatil;
+    }
+
+    public ItemCategory getItemCategory() {
+        return itemCategory;
+    }
+    public void setItemCategory(ItemCategory itemCategory) {
+        this.itemCategory = itemCategory;
+    }
 
     @Override
     public String toString() {
         return "Item{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", categoryid=" + categoryid +
                 ", name='" + name + '\'' +
                 ", tiitle='" + tiitle + '\'' +
@@ -41,12 +72,15 @@ public class Item extends Model<Item> {
                 ", price=" + price +
                 ", num=" + num +
                 ", status=" + status +
-                ", updated=" + updated +
-                ", created=" + created +
+                ", updated='" + updated + '\'' +
+                ", created='" + created + '\'' +
+                ", dmsg='" + dmsg + '\'' +
+                ", itemCategory=" + itemCategory +
+                ", itemDeatil=" + itemDeatil +
                 '}';
     }
 
-    public Item(Long id, Long categoryid, String name, String tiitle, String desc, String barcode, Double price, Integer num, Integer status, Date updated, Date created) {
+    public Item(String id, Long categoryid, String name, String tiitle, String desc, String barcode, Double price, Integer num, Integer status, String updated, String created) {
         this.id = id;
         this.categoryid = categoryid;
         this.name = name;
@@ -69,14 +103,12 @@ public class Item extends Model<Item> {
         return this.id;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
-
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
-
     public Long getCategoryid() {
         return categoryid;
     }
@@ -141,19 +173,18 @@ public class Item extends Model<Item> {
         this.status = status;
     }
 
-    public Date getUpdated() {
+    public String getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Date updated) {
-        this.updated = updated;
+    public void setUpdated(String updated) {
+        this.updated = updated.substring(0,updated.length()-2);
     }
 
-    public Date getCreated() {
+    public String getCreated() {
         return created;
     }
-
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setCreated(String created) {
+        this.created = created.substring(0,created.length()-2);
     }
 }

@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotations.TableName;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 @TableName("tb_item_category")
 public class ItemCategory extends Model<ItemCategory> {
     private Long id;

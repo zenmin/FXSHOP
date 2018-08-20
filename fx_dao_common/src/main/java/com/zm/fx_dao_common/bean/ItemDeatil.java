@@ -9,7 +9,7 @@ import java.util.Date;
 public class ItemDeatil extends Model<ItemDeatil> {
     private Long id;
 
-    private Long itemid;
+    private String itemid;
 
     private Date updated;
 
@@ -17,7 +17,7 @@ public class ItemDeatil extends Model<ItemDeatil> {
 
     private String bigmsg;
 
-    public ItemDeatil(Long id, Long itemid, Date updated, Date created, String bigmsg) {
+    public ItemDeatil(Long id, String itemid, Date updated, Date created, String bigmsg) {
         this.id = id;
         this.itemid = itemid;
         this.updated = updated;
@@ -53,11 +53,11 @@ public class ItemDeatil extends Model<ItemDeatil> {
         this.id = id;
     }
 
-    public Long getItemid() {
+    public String getItemid() {
         return itemid;
     }
 
-    public void setItemid(Long itemid) {
+    public void setItemid(String itemid) {
         this.itemid = itemid;
     }
 

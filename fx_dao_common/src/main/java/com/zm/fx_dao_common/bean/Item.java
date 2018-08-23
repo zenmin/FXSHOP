@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 
 @TableName("tb_item")
 public class Item extends Model<Item> {
@@ -33,9 +32,19 @@ public class Item extends Model<Item> {
 
     private String dmsg;
 
+    private String imgurl;
+
     private ItemCategory itemCategory;
 
     private ItemDeatil itemDeatil;
+
+    public String getImgurl() {
+        return imgurl;
+    }
+
+    public void setImgurl(String imgurl) {
+        this.imgurl = imgurl;
+    }
 
     public String getDmsg() {
         return dmsg;
@@ -75,23 +84,28 @@ public class Item extends Model<Item> {
                 ", updated='" + updated + '\'' +
                 ", created='" + created + '\'' +
                 ", dmsg='" + dmsg + '\'' +
+                ", imgurl='" + imgurl + '\'' +
                 ", itemCategory=" + itemCategory +
                 ", itemDeatil=" + itemDeatil +
                 '}';
     }
 
-    public Item(String id, Long categoryid, String name, String tiitle, String desc, String barcode, Double price, Integer num, Integer status, String updated, String created) {
+    public Item(String id, Long categoryid, String name, String tiitle, String describle, String barcode, Double price, Integer num, Integer status, String updated, String created, String dmsg, String imgurl, ItemCategory itemCategory, ItemDeatil itemDeatil) {
         this.id = id;
         this.categoryid = categoryid;
         this.name = name;
         this.tiitle = tiitle;
-        this.describle = desc;
+        this.describle = describle;
         this.barcode = barcode;
         this.price = price;
         this.num = num;
         this.status = status;
         this.updated = updated;
         this.created = created;
+        this.dmsg = dmsg;
+        this.imgurl = imgurl;
+        this.itemCategory = itemCategory;
+        this.itemDeatil = itemDeatil;
     }
 
     public Item() {

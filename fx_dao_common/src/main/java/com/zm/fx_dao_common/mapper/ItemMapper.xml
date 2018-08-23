@@ -14,6 +14,7 @@
       <arg column="status" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="updated" javaType="java.lang.String" jdbcType="TIMESTAMP" />
       <arg column="created" javaType="java.lang.String" jdbcType="TIMESTAMP" />
+      <arg column="imgurl" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <resultMap id="ResultMapAndCate" type="com.zm.fx_dao_common.bean.Item">
@@ -28,6 +29,7 @@
   <result column="status" property="status"/>
   <result column="updated" property="updated"/>
   <result column="created" property="created"  />
+  <result column="imgurl" property="imgurl"/>
   <association property="itemCategory" javaType="com.zm.fx_dao_common.bean.ItemCategory">
     <id column="cid" property="id" ></id>
     <result property="name" column="cname"></result>
@@ -45,6 +47,7 @@
     <result column="status" property="status"/>
     <result column="updated" property="updated"/>
     <result column="created" property="created"  />
+    <result column="imgurl" property="imgurl"/>
     <association property="itemCategory" javaType="com.zm.fx_dao_common.bean.ItemCategory">
       <id column="cid" property="id"></id>
       <result property="name" column="cname"></result>
@@ -151,11 +154,11 @@
     insert into tb_item (id, categoryid, name, 
       tiitle, describle, barcode, 
       price, num, status, 
-      updated, created)
+      updated, created,imgurl)
     values (#{id,jdbcType=BIGINT}, #{categoryid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
       #{tiitle,jdbcType=VARCHAR}, #{describle,jdbcType=VARCHAR}, #{barcode,jdbcType=VARCHAR}, 
       #{price,jdbcType=DOUBLE}, #{num,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{updated,jdbcType=TIMESTAMP}, #{created,jdbcType=TIMESTAMP})
+      #{updated,jdbcType=TIMESTAMP}, #{created,jdbcType=TIMESTAMP}, #{imgurl,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zm.fx_dao_common.bean.Item">
     insert into tb_item
@@ -193,6 +196,9 @@
       <if test="created != null">
         created,
       </if>
+      <if test="imgurl != null">
+        imgurl,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -227,6 +233,9 @@
       </if>
       <if test="created != null">
         #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imgurl != null">
+        #{imgurl,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -288,6 +297,7 @@
       price = #{record.price,jdbcType=DOUBLE},
       num = #{record.num,jdbcType=INTEGER},
       status = #{record.status,jdbcType=INTEGER},
+      imgurl = #{record.imgurl,jdbcType=VARCHAR},
       updated = #{record.updated,jdbcType=TIMESTAMP},
       created = #{record.created,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -321,6 +331,9 @@
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
+      <if test="imgurl != null">
+        imgurl = #{imgurl,jdbcType=VARCHAR},
+      </if>
       <if test="updated != null">
         updated = #{updated,jdbcType=TIMESTAMP},
       </if>
@@ -337,6 +350,7 @@
       tiitle = #{tiitle,jdbcType=VARCHAR},
       describle = #{describle,jdbcType=VARCHAR},
       barcode = #{barcode,jdbcType=VARCHAR},
+      imgurl = #{imgurl,jdbcType=VARCHAR},
       price = #{price,jdbcType=DOUBLE},
       num = #{num,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
@@ -348,7 +362,7 @@
    t.id as tid, categoryid, t.name as tname , tiitle, describle, barcode,price, num, t.status, t.updated, t.created,c.id as cid ,c.name as cname
 </sql>
   <sql id="itemAndCateAndDetial">
-   t.id as tid, categoryid, t.name as tname , tiitle, describle, barcode,price, num, t.status, t.updated, t.created,c.id as cid ,c.parentid as pid,
+   t.id as tid, categoryid, t.name as tname , tiitle, describle, barcode,price, num,imgurl, t.status, t.updated, t.created,c.id as cid ,c.parentid as pid,
    c.name as cname,d.id as did,d.itemid as itemid,d.bigmsg as dmsg
 </sql>
   <select id="findAllandCategory" parameterType="com.zm.fx_dao_common.bean.ItemExample" resultMap="ResultMapAndCate">

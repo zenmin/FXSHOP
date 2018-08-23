@@ -1,7 +1,6 @@
 package com.zm.fx_web_admin.config;
 
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
@@ -36,7 +35,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         configurer.setUseRegisteredSuffixPatternMatch(true);
     }
 
-    @Bean
+//    @Bean
     public ServletRegistrationBean regDispatcherServlet(DispatcherServlet dispatcherServlet) {
         ServletRegistrationBean<DispatcherServlet> registrationBean = new ServletRegistrationBean();
         registrationBean.setServlet(dispatcherServlet);

@@ -2,15 +2,19 @@ package com.zm.fx_web_admin.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zm.fx_util_common.bean.Item;
+import com.zm.fx_util_common.util.OssUpload;
 import com.zm.fx_web_admin.service.RefreItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import java.io.InputStream;
 
 /**
- * @Describle This Class Is 商品服务
+ * @Describle This Class Is 商品访问层
  * @Author ZengMin
  * @Date 2018/8/12 11:33
  */
@@ -20,6 +24,10 @@ public class RefreItemController {
 
     @Autowired
     RefreItemService refreItemService;
+    @Autowired
+    OssUpload ossUpload;
+    @Value("${IMGURL}")
+    private String imgurl;
 
     @GetMapping("/findall")
     public JSONObject findAll(int start, int size, @RequestParam(value = "sort",required = false) String sort){
@@ -95,4 +103,39 @@ public class RefreItemController {
         }
         return jsonObject;
     }
+
+    /**
+     * 图片上传
+     * @param file
+     * @return
+     */
+    @PostMapping("/uploadimg")
+    public JSONObject upload(HttpServletRequest request, MultipartFile file) {
+        JSONObject result = new JSONObject();
+        try{
+            //传输文件至阿里oss
+            InputStream inputStream = file.getInputStream();
+            String contentType = file.getContentType();
+            String[] split = contentType.split("/");
+            String hz = split[split.length-1];
+            String imgName = request.getRequestedSessionId().substring(0,5) + System.currentTimeMillis() + "." + hz;
+            String imgUrl = ossUpload.fileUploadByInputStream(inputStream, imgName);
+            System.out.println("访问地址："+ imgUrl);
+            if(!StringUtils.isEmpty(imgUrl)){
+                JSONObject img = new JSONObject();
+                result.put("code","0");
+                result.put("msg","上传成功");
+                img.put("src",imgUrl);
+                result.put("data",img);
+                return result;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            result.put("code","500");
+            result.put("msg","上传失败，请检查网络连接！");
+            return result;
+        }
+        return result;
+    }
+
 }

@@ -9,7 +9,7 @@
       <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="img" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="url" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="desc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="describle" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="updated" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="created" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
@@ -73,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, parentid, name, title, img, url, desc, updated, created
+    id, parentid, name, title, img, url, describle, updated, created
   </sql>
   <select id="selectByExample" parameterType="com.zm.fx_dao_common.bean.IndexContentExample" resultMap="BaseResultMap">
     select
@@ -107,10 +107,10 @@
   </delete>
   <insert id="insert" parameterType="com.zm.fx_dao_common.bean.IndexContent">
     insert into tb_index_content (id, parentid, name, 
-      title, img, url, desc, 
+      title, img, url, describle,
       updated, created)
     values (#{id,jdbcType=BIGINT}, #{parentid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{title,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{describle,jdbcType=VARCHAR},
       #{updated,jdbcType=TIMESTAMP}, #{created,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.zm.fx_dao_common.bean.IndexContent">
@@ -134,8 +134,8 @@
       <if test="url != null">
         url,
       </if>
-      <if test="desc != null">
-        desc,
+      <if test="describle != null">
+        describle,
       </if>
       <if test="updated != null">
         updated,
@@ -163,8 +163,8 @@
       <if test="url != null">
         #{url,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null">
-        #{desc,jdbcType=VARCHAR},
+      <if test="describle != null">
+        #{describle,jdbcType=VARCHAR},
       </if>
       <if test="updated != null">
         #{updated,jdbcType=TIMESTAMP},
@@ -201,8 +201,8 @@
       <if test="record.url != null">
         url = #{record.url,jdbcType=VARCHAR},
       </if>
-      <if test="record.desc != null">
-        desc = #{record.desc,jdbcType=VARCHAR},
+      <if test="record.describle != null">
+        describle = #{record.describle,jdbcType=VARCHAR},
       </if>
       <if test="record.updated != null">
         updated = #{record.updated,jdbcType=TIMESTAMP},
@@ -223,7 +223,7 @@
       title = #{record.title,jdbcType=VARCHAR},
       img = #{record.img,jdbcType=VARCHAR},
       url = #{record.url,jdbcType=VARCHAR},
-      desc = #{record.desc,jdbcType=VARCHAR},
+    describle = #{record.describle,jdbcType=VARCHAR},
       updated = #{record.updated,jdbcType=TIMESTAMP},
       created = #{record.created,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -248,8 +248,8 @@
       <if test="url != null">
         url = #{url,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null">
-        desc = #{desc,jdbcType=VARCHAR},
+      <if test="describle != null">
+        describle = #{describle,jdbcType=VARCHAR},
       </if>
       <if test="updated != null">
         updated = #{updated,jdbcType=TIMESTAMP},
@@ -267,7 +267,7 @@
       title = #{title,jdbcType=VARCHAR},
       img = #{img,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
-      desc = #{desc,jdbcType=VARCHAR},
+      describle = #{describle,jdbcType=VARCHAR},
       updated = #{updated,jdbcType=TIMESTAMP},
       created = #{created,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}

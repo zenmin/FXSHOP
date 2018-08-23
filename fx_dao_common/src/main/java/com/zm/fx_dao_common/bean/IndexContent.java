@@ -19,7 +19,7 @@ public class IndexContent extends Model<IndexContent> {
 
     private String url;
 
-    private String desc;
+    private String describle;
 
     private Date updated;
 
@@ -34,20 +34,20 @@ public class IndexContent extends Model<IndexContent> {
                 ", title='" + title + '\'' +
                 ", img='" + img + '\'' +
                 ", url='" + url + '\'' +
-                ", desc='" + desc + '\'' +
+                ", describle='" + describle + '\'' +
                 ", updated=" + updated +
                 ", created=" + created +
                 '}';
     }
 
-    public IndexContent(Long id, Long parentid, String name, String title, String img, String url, String desc, Date updated, Date created) {
+    public IndexContent(Long id, Long parentid, String name, String title, String img, String url, String describle, Date updated, Date created) {
         this.id = id;
         this.parentid = parentid;
         this.name = name;
         this.title = title;
         this.img = img;
         this.url = url;
-        this.desc = desc;
+        this.describle = describle;
         this.updated = updated;
         this.created = created;
     }
@@ -109,12 +109,12 @@ public class IndexContent extends Model<IndexContent> {
         this.url = url == null ? null : url.trim();
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescrible() {
+        return describle;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+    public void setDescrible(String describle) {
+        this.describle = describle;
     }
 
     public Date getUpdated() {

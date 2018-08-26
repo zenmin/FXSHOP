@@ -22,7 +22,17 @@ public class IndexContent  implements Serializable {
 
     private Date created;
 
-    public IndexContent(Long id, Long parentid, String name, String title, String img, String url, String describle, Date updated, Date created) {
+    private ContentCategory contentCategory;
+
+    public ContentCategory getContentCategory() {
+        return contentCategory;
+    }
+
+    public void setContentCategory(ContentCategory contentCategory) {
+        this.contentCategory = contentCategory;
+    }
+
+    public IndexContent(Long id, Long parentid, String name, String title, String img, String url, String describle, Date updated, Date created, ContentCategory contentCategory) {
         this.id = id;
         this.parentid = parentid;
         this.name = name;
@@ -32,6 +42,23 @@ public class IndexContent  implements Serializable {
         this.describle = describle;
         this.updated = updated;
         this.created = created;
+        this.contentCategory = contentCategory;
+    }
+
+    @Override
+    public String toString() {
+        return "IndexContent{" +
+                "id=" + id +
+                ", parentid=" + parentid +
+                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
+                ", img='" + img + '\'' +
+                ", url='" + url + '\'' +
+                ", describle='" + describle + '\'' +
+                ", updated=" + updated +
+                ", created=" + created +
+                ", contentCategory=" + contentCategory +
+                '}';
     }
 
     public IndexContent() {

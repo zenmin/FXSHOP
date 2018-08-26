@@ -118,7 +118,7 @@ public class RefreItemController {
             String contentType = file.getContentType();
             String[] split = contentType.split("/");
             String hz = split[split.length-1];
-            String imgName = request.getRequestedSessionId().substring(0,5) + System.currentTimeMillis() + "." + hz;
+            String imgName = request.getSession().getId().substring(0,5) + System.currentTimeMillis() + "." + hz;
             String imgUrl = ossUpload.fileUploadByInputStream(inputStream, imgName);
             System.out.println("访问地址："+ imgUrl);
             if(!StringUtils.isEmpty(imgUrl)){

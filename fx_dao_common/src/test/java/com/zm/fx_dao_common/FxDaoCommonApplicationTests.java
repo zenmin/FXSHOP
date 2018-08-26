@@ -3,8 +3,10 @@ package com.zm.fx_dao_common;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.zm.fx_dao_common.bean.Admin;
+import com.zm.fx_dao_common.bean.IndexContent;
 import com.zm.fx_dao_common.bean.Item;
 import com.zm.fx_dao_common.dao.AdminMapper;
+import com.zm.fx_dao_common.dao.IndexContentMapper;
 import com.zm.fx_dao_common.dao.ItemCategoryMapper;
 import com.zm.fx_dao_common.dao.ItemMapper;
 import org.junit.Test;
@@ -25,6 +27,8 @@ public class FxDaoCommonApplicationTests {
     ItemCategoryMapper itemCategoryMapper;
     @Autowired
     ItemMapper itemMapper;
+    @Autowired
+    IndexContentMapper indexContentMapper;
     /**
      * 模糊查询
      */
@@ -55,7 +59,7 @@ public class FxDaoCommonApplicationTests {
 
     @Test
     public void sleect3() {
-        Page<Item> page = new Page<>(2,1); //分页类
+        Page<Item> page = new Page<>(1,1); //分页类
         EntityWrapper entityWrapper = new EntityWrapper();  //查询参数
         List list = itemMapper.selectMyPage(page, entityWrapper);
         page.setRecords(list).toString();
@@ -64,10 +68,8 @@ public class FxDaoCommonApplicationTests {
 
     @Test
     public void sleect4() {
-        Page<Item> page = new Page<>(1,1); //分页类
-        EntityWrapper entityWrapper = new EntityWrapper();  //查询参数
-        Item item = itemMapper.selectMyPageByid("1");
-        System.out.println(item);
+        IndexContent indexContent = indexContentMapper.selectByPrimaryKey(12314L);
+        System.out.println(indexContent);
     }
 
     /**

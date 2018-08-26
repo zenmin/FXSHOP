@@ -1,5 +1,6 @@
 package com.zm.fx_web_admin.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zm.fx_util_common.bean.*;
 import com.zm.fx_web_admin.service.RefreContentService;
@@ -24,7 +25,9 @@ public class RefreContentController {
     @GetMapping("/content/getcates")
     public JSONObject getContentCates(){
         String contentCates = contentService.getContentCates();
-        JSONObject jsonObject = JSONObject.parseObject(contentCates);
+        JSONArray objects = JSONArray.parseArray(contentCates);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("objects",objects);
         jsonObject.put("code","200");
         jsonObject.put("msg","成功");
         return jsonObject;
@@ -64,7 +67,7 @@ public class RefreContentController {
      * @return
      */
     @PostMapping("/content/update")
-    public JSONObject update(@RequestBody IndexContent indexContent){
+    public JSONObject update(IndexContent indexContent){
         Boolean aBoolean = contentService.updateContent(indexContent);
         JSONObject jsonObject = new JSONObject();
         if(aBoolean){
@@ -83,7 +86,7 @@ public class RefreContentController {
      * @return
      */
     @PutMapping("/content/add")
-    public Boolean add(@RequestBody IndexContent indexContent){
+    public JSONObject add(IndexContent indexContent){
         Boolean aBoolean = contentService.addContent(indexContent);
         JSONObject jsonObject = new JSONObject();
         if(aBoolean){
@@ -93,7 +96,7 @@ public class RefreContentController {
             jsonObject.put("code","500");
             jsonObject.put("msg","失败");
         }
-        return aBoolean;
+        return jsonObject;
     }
 
     /**

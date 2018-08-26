@@ -39,20 +39,19 @@ public class ContentService {
      */
     public Page getContents(){
         Page<IndexContent> page = new Page<>();
-        List<IndexContent> indexContents = indexContentMapper.selectPage(page,  new EntityWrapper<>());
+        List<IndexContent> indexContents = indexContentMapper.selectIndexAndCate(page,  new EntityWrapper<>());
         page.setRecords(indexContents);
         return page;
     }
 
 
     /**
-     * 根据id取所有首页内容
+     * 根据id取首页内容
      * @return
      */
     public IndexContent getContentsById(Long id){
         return indexContentMapper.selectByPrimaryKey(id);
     }
-
 
     public int addContent(IndexContent indexContent) {
         return indexContentMapper.insertSelective(indexContent);

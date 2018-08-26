@@ -1,11 +1,13 @@
 package com.zm.fx_dao_common.dao;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import java.util.List;
-
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.zm.fx_dao_common.bean.IndexContent;
 import com.zm.fx_dao_common.bean.IndexContentExample;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
+
+import java.util.List;
 
 public interface IndexContentMapper extends BaseMapper<IndexContent> {
     long countByExample(IndexContentExample example);
@@ -29,4 +31,6 @@ public interface IndexContentMapper extends BaseMapper<IndexContent> {
     int updateByPrimaryKeySelective(IndexContent record);
 
     int updateByPrimaryKey(IndexContent record);
+
+    List<IndexContent> selectIndexAndCate(RowBounds rowBounds, @Param("ew") Wrapper<?> wrapper);
 }

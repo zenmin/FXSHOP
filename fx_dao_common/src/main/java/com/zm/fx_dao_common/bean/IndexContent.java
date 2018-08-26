@@ -25,6 +25,8 @@ public class IndexContent extends Model<IndexContent> {
 
     private Date created;
 
+    private ContentCategory contentCategory;
+
     @Override
     public String toString() {
         return "IndexContent{" +
@@ -37,6 +39,7 @@ public class IndexContent extends Model<IndexContent> {
                 ", describle='" + describle + '\'' +
                 ", updated=" + updated +
                 ", created=" + created +
+                ", contentCategory=" + contentCategory +
                 '}';
     }
 
@@ -131,5 +134,13 @@ public class IndexContent extends Model<IndexContent> {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public ContentCategory getContentCategory() {
+        return contentCategory;
+    }
+
+    public void setContentCategory(ContentCategory contentCategory) {
+        this.contentCategory = contentCategory;
     }
 }

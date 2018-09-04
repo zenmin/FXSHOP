@@ -118,7 +118,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, categoryid, name, tiitle, describle, barcode, price, num, status, updated, created
+    id, categoryid, name, tiitle, describle, barcode, price, num, status, updated, created,imgurl
   </sql>
   <select id="selectByExample" parameterType="com.zm.fx_dao_common.bean.ItemExample" resultMap="BaseResultMap">
     select

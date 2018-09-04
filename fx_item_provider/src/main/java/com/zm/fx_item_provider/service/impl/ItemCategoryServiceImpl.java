@@ -5,6 +5,8 @@ import com.zm.fx_dao_common.bean.ItemCategoryExample;
 import com.zm.fx_dao_common.dao.ItemCategoryMapper;
 import com.zm.fx_item_provider.service.ItemCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.List;
  * @Date 2018/8/18 14:48
  */
 @Service
+@CacheConfig(cacheNames =  "ItemCategory")
 public class ItemCategoryServiceImpl implements ItemCategoryService {
 
     @Autowired
@@ -26,6 +29,7 @@ public class ItemCategoryServiceImpl implements ItemCategoryService {
      * @return
      */
     @Override
+    @Cacheable
     public List<ItemCategory> getAllCate() {
         List<ItemCategory> itemCategories = itemCategoryMapper.selectByExample(null);
         return itemCategories;
@@ -37,6 +41,7 @@ public class ItemCategoryServiceImpl implements ItemCategoryService {
      * @return
      */
     @Override
+    @Cacheable
     public List<ItemCategory> getAllCateParent() {
         ItemCategoryExample itemCategoryExample = new ItemCategoryExample();
         ItemCategoryExample.Criteria criteria = itemCategoryExample.createCriteria();
@@ -51,6 +56,7 @@ public class ItemCategoryServiceImpl implements ItemCategoryService {
      * @return
      */
     @Override
+    @Cacheable
     public ItemCategory getAllCateById(Integer id) {
         return itemCategoryMapper.selectById(id);
     }
@@ -62,6 +68,7 @@ public class ItemCategoryServiceImpl implements ItemCategoryService {
      * @return
      */
     @Override
+    @Cacheable
     public List<ItemCategory> getAllCateByPid(Long id) {
         ItemCategoryExample itemCategoryExample = new ItemCategoryExample();
         ItemCategoryExample.Criteria criteria = itemCategoryExample.createCriteria();

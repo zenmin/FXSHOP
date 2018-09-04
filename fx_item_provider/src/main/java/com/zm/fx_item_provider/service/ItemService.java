@@ -11,9 +11,9 @@ import java.util.Map;
  * @Date 2018/8/12 10:11
  */
 public interface ItemService {
-    public Page findAll(Map<String, Object> params, String start, String size, String sort);
-    public Item findById(String id);
-    public int updateItem(Item item);
-    public int deleteById(String id);
-    public int add(Item item);
+    Page findAll(Map<String, Object> params, String start, String size, String sort);
+    Item findById(String id);
+    int updateItem(Item item);
+    int deleteById(String id);
+    int add(Item item);
 }

@@ -72,7 +72,7 @@ public class RefreItemCateController {
      * @return
      */
     @GetMapping("/findbypid/{id}")
-    public JSONObject findParentById(@PathVariable Long id){
+    public JSONObject findParentById(@PathVariable String id){
         String all = refreItemCateService.findByPid(id);
         JSONArray objects = JSONArray.parseArray(all);
         JSONObject jsonObject = new JSONObject();

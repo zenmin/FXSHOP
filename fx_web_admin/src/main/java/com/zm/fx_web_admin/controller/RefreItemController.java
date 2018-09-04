@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.zm.fx_util_common.bean.Item;
 import com.zm.fx_util_common.util.OssUpload;
 import com.zm.fx_web_admin.service.RefreItemService;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
@@ -28,10 +29,18 @@ public class RefreItemController {
     OssUpload ossUpload;
     @Value("${IMGURL}")
     private String imgurl;
+    @Autowired
+    RabbitTemplate rabbitTemplate;
 
     @GetMapping("/findall")
     public JSONObject findAll(int start, int size, @RequestParam(value = "sort",required = false) String sort){
         String all = refreItemService.findAll(start,size,sort);
+        if(all.equals("false")){
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("code","500");
+            jsonObject.put("msg","服务异常");
+            return jsonObject;
+        }
         JSONObject jsonObject = JSONObject.parseObject(all);
         jsonObject.put("code","200");
         jsonObject.put("msg","成功");
@@ -41,6 +50,12 @@ public class RefreItemController {
     @GetMapping("/findbyid/{id}")
     public JSONObject findAll(@PathVariable String id){
         String all = refreItemService.findById(id);
+        if(all.equals("false")){
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("code","500");
+            jsonObject.put("msg","服务异常");
+            return jsonObject;
+        }
         JSONObject jsonObject = JSONObject.parseObject(all);
         jsonObject.put("code","200");
         jsonObject.put("msg","成功");
@@ -136,6 +151,26 @@ public class RefreItemController {
             return result;
         }
         return result;
+    }
+
+    /*
+        刷新索引库
+    */
+    @GetMapping("/refreshIndex")
+    public JSONObject refreshIndex(){
+        JSONObject jsonObject = new JSONObject();
+        String msg = "refreshIndex";
+        try {
+            rabbitTemplate.convertAndSend("fxshop.exchange","fxshop.refreshIndex",msg);
+        }catch (Exception e){
+            e.printStackTrace();
+            jsonObject.put("code","500");
+            jsonObject.put("msg","失败");
+            return jsonObject;
+        }
+        jsonObject.put("code","200");
+        jsonObject.put("msg","成功");
+        return jsonObject;
     }
 
 }

@@ -1,9 +1,8 @@
 package com.zm.fx_web_admin.service;
 
-import com.alibaba.fastjson.JSONObject;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.zm.fx_util_common.bean.Item;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -28,6 +27,7 @@ public class RefreItemService {
      * @param sort
      * @return
      */
+    @HystrixCommand(fallbackMethod = "returnAllError")     //断路器后续方法  方法入参必须和此方法一致
     public String findAll(int start, int size, String sort){
         //实际上是调用了FX_ITEM_PROVIDER的rest请求
         String forObject = restTemplate.getForObject("http://FXITEMPROVIDER/item/findall?start="+start+"&size="+size+"&sort="+sort, String.class);//直接写提供者名称/rest接口调用远程服务
@@ -39,6 +39,7 @@ public class RefreItemService {
      * @param id
      * @return
      */
+    @HystrixCommand(fallbackMethod = "returnError")     //断路器后续方法  方法入参必须和此方法一致
     public String findById(String id){
         //实际上是调用了FX_ITEM_PROVIDER的rest请求
         String forObject = restTemplate.getForObject("http://FXITEMPROVIDER/item/findbyid/"+id, String.class);//直接写提供者名称/rest接口调用远程服务
@@ -67,6 +68,7 @@ public class RefreItemService {
      * @param id
      * @return
      */
+    @HystrixCommand(fallbackMethod = "returnError")     //断路器后续方法  方法入参必须和此方法一致
     public Boolean delete(String id){
         try {
             restTemplate.delete("http://FXITEMPROVIDER/item/delete/"+id, String.class);//直接写提供者名称/rest接口调用远程服务
@@ -89,5 +91,15 @@ public class RefreItemService {
         }catch (Exception e){
             return false;
         }
+    }
+
+    //断路器后续方法
+    public String returnAllError(int start, int size, String sort){
+        return "false";
+    }
+
+    //断路器后续方法
+    public String returnError(String id){
+        return "false";
     }
 }

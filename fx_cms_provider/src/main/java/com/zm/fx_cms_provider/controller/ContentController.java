@@ -56,7 +56,8 @@ public class ContentController {
      */
     @PostMapping("/content/update")
     public int update(@RequestBody IndexContent indexContent){
-        return contentService.updateContent(indexContent);
+        contentService.updateContent(indexContent);
+        return 1;
     }
 
     /**
@@ -66,7 +67,8 @@ public class ContentController {
      */
     @PutMapping("/content/add")
     public int add(@RequestBody IndexContent indexContent){
-        return contentService.addContent(indexContent);
+        contentService.addContent(indexContent);
+        return 1;
     }
 
     /**
@@ -74,9 +76,21 @@ public class ContentController {
      * @param id
      * @return
      */
-    @DeleteMapping("/content/{id}")
-    public int delete(Long id){
-        return contentService.deleteById(id);
+    @DeleteMapping("/content/delete/{id}")
+    public int delete(@PathVariable String id){
+        contentService.deleteById(Long.parseLong(id));
+        return 1;
     }
+
+    /**
+     * 根据parentid取内容
+     * @param parentid
+     * @return
+     */
+    @GetMapping("/content/parent/{parentid}")
+    public List<IndexContent> getContentByPId(@PathVariable Long parentid){
+        return contentService.getContentByPid(parentid);
+    }
+
 
 }

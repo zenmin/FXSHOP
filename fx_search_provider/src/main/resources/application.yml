@@ -1,0 +1,11 @@
+server:
+  port: 8003
+eureka:
+  client:
+    service-url:
+     defaultZone: http://127.0.0.1:8761/eureka
+  instance:
+      prefer-ip-address: true  #注册的时候使用ip地址注册
+spring:
+  application:
+    name: fxsearchprovider

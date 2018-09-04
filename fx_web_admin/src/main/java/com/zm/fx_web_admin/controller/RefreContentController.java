@@ -2,7 +2,7 @@ package com.zm.fx_web_admin.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.zm.fx_util_common.bean.*;
+import com.zm.fx_util_common.bean.IndexContent;
 import com.zm.fx_web_admin.service.RefreContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -104,8 +104,8 @@ public class RefreContentController {
      * @param id
      * @return
      */
-    @DeleteMapping("/content/{id}")
-    public JSONObject delete(Long id){
+    @DeleteMapping("/content/delete/{id}")
+    public JSONObject delete(@PathVariable String id){
         Boolean aBoolean = contentService.deleteById(id);
         JSONObject jsonObject = new JSONObject();
         if(aBoolean){
@@ -118,4 +118,20 @@ public class RefreContentController {
         return jsonObject;
     }
 
+
+    /**
+     * 根据parentid取内容
+     * @param parentid
+     * @return
+     */
+    @GetMapping("/content/parent/{parentid}")
+    public JSONObject getContentByPId(@PathVariable Long parentid){
+        JSONObject jsonObject = new JSONObject();
+        String contentByPid = contentService.getContentByPid(parentid);
+        Object parse = JSONArray.parse(contentByPid);
+        jsonObject.put("objects",parse);
+        jsonObject.put("code","200");
+        jsonObject.put("msg","成功");
+        return jsonObject;
+    }
 }

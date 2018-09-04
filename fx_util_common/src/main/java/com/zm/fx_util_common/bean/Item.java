@@ -1,7 +1,9 @@
 package com.zm.fx_util_common.bean;
 
-import java.io.Serializable;
+import org.springframework.data.elasticsearch.annotations.Document;
 
+import java.io.Serializable;
+@Document(indexName = "items",type = "item")
 public class Item  implements Serializable {
     private Long id;
 

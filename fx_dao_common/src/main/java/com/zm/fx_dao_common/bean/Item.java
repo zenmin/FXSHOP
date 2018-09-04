@@ -90,7 +90,7 @@ public class Item extends Model<Item> {
                 '}';
     }
 
-    public Item(String id, Long categoryid, String name, String tiitle, String describle, String barcode, Double price, Integer num, Integer status, String updated, String created, String dmsg, String imgurl, ItemCategory itemCategory, ItemDeatil itemDeatil) {
+    public Item(String id, Long categoryid, String name, String tiitle, String describle, String barcode, Double price, Integer num, Integer status, String updated, String created, String imgurl) {
         this.id = id;
         this.categoryid = categoryid;
         this.name = name;
@@ -102,10 +102,7 @@ public class Item extends Model<Item> {
         this.status = status;
         this.updated = updated;
         this.created = created;
-        this.dmsg = dmsg;
         this.imgurl = imgurl;
-        this.itemCategory = itemCategory;
-        this.itemDeatil = itemDeatil;
     }
 
     public Item() {

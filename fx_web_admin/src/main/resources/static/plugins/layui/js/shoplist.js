@@ -37,7 +37,7 @@ layui.use('table', function(){
         var data = obj.data; //获得当前行数据
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var tr = obj.tr; //获得当前行 tr 的DOM对象
-        var url = "shopdetail.html?itemid=" + data.id;
+        var url = "/admin/shopdetail.html?itemid=" + data.id;
         if(layEvent === 'detail'){ //查看
             //do somehing
         } else if(layEvent === 'del'){ //删除
@@ -101,10 +101,27 @@ layui.use('table', function(){
             area: ['1300px', '750px'],
             fixed: false, //不固定
             maxmin: true,
-            content: ["/additem.html"]
+            content: ["/admin/additem.html"]
         });
     });
 
+    //打开添加页面
+    $(document).on("click","#refbtn",function () {
+        var b = layer.confirm("是否刷新全部索引？", {
+            btn: ['是','否'] //按钮
+            ,cancel: function(index, layero){
+                //取消操作，点击右上角的X
+            }
+        }, function(){
+            //是
+            layer.close(b);
+            $.get("/item/refreshIndex",{},function(result){
+                if(result.code == "200"){
+                    layer.msg("任务正在后台执行...");
+                }
+            });
+        });
+    });
 
 });
 

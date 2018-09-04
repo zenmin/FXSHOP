@@ -1,6 +1,5 @@
 package com.zm.fx_web_admin.service;
 
-import com.zm.fx_util_common.bean.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -49,7 +48,7 @@ public class RefreItemCateService {
      * @param id
      * @return
      */
-    public String findByPid(Long id) {
+    public String findByPid(String id) {
         String forObject = restTemplate.getForObject("http://FXITEMPROVIDER/itemcate/findbypid/"+id, String.class);//直接写提供者名称/rest接口调用远程服务
         return forObject;
     }

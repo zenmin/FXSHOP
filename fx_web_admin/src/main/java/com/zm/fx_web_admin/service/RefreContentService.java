@@ -44,6 +44,14 @@ public class RefreContentService {
         return forObject;
     }
 
+    /**
+     * 根据pid取所有首页内容
+     * @return
+     */
+    public String getContentByPid(Long parentid){
+        String forObject = restTemplate.getForObject("http://FXCMSPROVIDER/content/parent/{1}", String.class,parentid);
+        return forObject;
+    }
 
     public Boolean addContent(IndexContent indexContent) {
         try {
@@ -65,9 +73,9 @@ public class RefreContentService {
         }
     }
 
-    public Boolean deleteById(Long id) {
+    public Boolean deleteById(String id) {
         try {
-            restTemplate.delete("http://FXCMSPROVIDER/content/update/{1}",String.class,id);
+            restTemplate.delete("http://FXCMSPROVIDER/content/delete/"+id,String.class);
             return true;
         }catch (Exception e){
             e.printStackTrace();

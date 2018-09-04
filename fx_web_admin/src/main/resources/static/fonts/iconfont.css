@@ -1,0 +1,65 @@
+
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot'); /* IE9*/
+  src: url('iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-close:before { content: "\e646"; }/*错误（叉叉）*/
+.icon-check:before { content: "\e645"; }/*正确打钩*/
+.icon-roundadd:before { content: "\e6d9"; }/*圆圈+号*/
+.icon-goods:before { content: "\e6cd"; }/*包*/
+.icon-message:before { content: "\e6bc"; }/*咨询留言*/
+.icon-qrcode:before { content: "\e6b0"; }/*二维码*/
+.icon-remind:before { content: "\e6b2"; }/*提醒（闹钟）*/
+.icon-delete:before { content: "\e6b4"; }/*删除（垃圾桶）*/
+.icon-home:before { content: "\e6b8"; }/*家（房子）*/
+.icon-weibo:before { content: "\e6c4"; }/*新浪微博*/
+.icon-right:before { content: "\e6a3"; }/*左箭头*/
+.icon-pullup:before { content: "\e6a0"; }/*收起（上箭头）*/
+.icon-pulldown:before { content: "\e69f"; }/*展开（下箭头）*/
+.icon-top:before { content: "\e69e"; }/*顶部（返回）*/
+.icon-questionfill:before { content: "\e690"; }/*帮助中心*/
+.icon-my:before { content: "\e686"; }/*我（用户头像）*/
+.icon-wang:before { content: "\e678"; }/*阿里旺旺头像*/
+.icon-camera:before { content: "\e665"; }/*相机（线框）*/
+.icon-camerafill:before { content: "\e664"; }/*相机（实体）*/
+.icon-timefill:before { content: "\e65e"; }/*时间*/
+.icon-redpacket:before { content: "\e6e0"; }/*红包*/
+.icon-friendfill:before { content: "\e726"; } /*便民服务*/
+.icon-sort:before { content: "\e700"; }/*菜单栏分类*/
+.icon-notification:before { content: "\e66b"; }/*喇叭（通知）*/
+.icon-locationfill:before { content: "\e650"; }/*位置（地图）*/
+.icon-decide:before { content: "\e61d"; }/*建筑*/
+.icon-phone:before { content: "\e628"; }/*手机*/
+.icon-zhifubao:before { content: "\e621"; }/*支付宝图标*/
+.icon-iconfontarrow01up:before { content: "\e609"; }/*箭头向上*/
+.icon-weixin:before { content: "\e6ab"; }/*微信二维码*/
+.icon-weixin1:before { content: "\e659"; }/*购物车*/
+.icon-weixin2:before { content: "\e652"; }/*微信图标*/
+.icon-cart:before { content: "\e659"; }/*购物车*/
+.icon-cart1:before { content: "\f00fd"; }/*购物车1*/
+.icon-qq1:before { content: "\f001d"; }/*QQ*/
+.icon-qq-copy:before { content: "\e63c"; }/**/
+.icon-plane:before { content: "\e604"; }/*飞机*/
+.icon-train:before { content: "\ec91"; }/*火车*/
+.icon-bianminfuwu:before { content: "\e639"; }/*便民服务（人物）*/
+.icon-fuwuyoujianshenghuofuwu:before { content: "\e688"; }/*服务爱心*/
+.icon-jianzhutubiao:before { content: "\e61d"; }/*大楼（建筑）*/
+.icon-jiudian:before { content: "\e60e"; }/*酒店（床）*/
+.icon-chongzhi:before { content: "\e618"; }/*手机充值*/
+.icon-car:before { content: "\e653"; }/*汽车*/
+.icon-xiangzi:before { content: "\e63b"; }/*箱子*/
+.icon-chengrenyongpin:before { content: "\e6a8"; }/**/
+.icon-collect:before { content: "\e619"; }/*收藏（五角星）*/
+.icon-collect1:before { content: "\e64b"; }/*收藏（心型）*/

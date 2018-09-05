@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -32,11 +33,14 @@ public class ItemSearchSerivceImpl implements ItemSerchService {
      * @return
      */
     @Override
-    public Page<Item> findAll(int page, int size) {
-        if(page < 0){
-            page = 0;
+    public Page<Item> findAll(String q,int page, int size) {
+        Page<Item> all = null;
+        if(StringUtils.isEmpty(q) == false){
+            //根据标题和描述查询
+            all = itemRepo.findByTiitleLikeAndDescribleLike(q, q,new PageRequest(page, size));
+        }else{
+            all = itemRepo.findAll(new PageRequest(page, size));
         }
-        Page<Item> all = itemRepo.findAll(new PageRequest(page, size));
         return all;
     }
 

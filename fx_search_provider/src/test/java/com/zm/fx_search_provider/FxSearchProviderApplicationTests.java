@@ -61,6 +61,13 @@ public class FxSearchProviderApplicationTests {
         System.out.println(all.getTotalElements());
     }
 
+
+    @Test
+    public void search1(){
+        Page<Item> page = itemRepo.findByTiitleLikeAndDescribleLike("OPPO", "OPPO",new PageRequest(0, 10));
+        System.out.println(page.getContent());
+    }
+
     @Test
     public void searchById(){
         Item one = itemRepo.findOne(123456);

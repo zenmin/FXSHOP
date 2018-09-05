@@ -2,12 +2,15 @@ package com.zm.fx_search_provider.controller;
 
 import com.zm.fx_search_provider.service.ItemSerchService;
 import com.zm.fx_util_common.bean.Item;
+import com.zm.fx_util_common.bean.SearchEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import static com.zm.fx_util_common.bean.SearchEntity.convertObj;
+
 /**
- * @Describle This Class Is
+ * @Describle This Class Is 商品搜索
  * @Author ZengMin
  * @Date 2018/8/30 20:56
  */
@@ -18,12 +21,12 @@ public class ItemSearchController {
     ItemSerchService itemSerchService;
 
     @GetMapping("/search")
-    public Page<Item> findAll(int page, int size) {
-        if(page < 0){
-            page = 0;
-        }
-        Page<Item> all = itemSerchService.findAll(page,size);
-        return all;
+    public SearchEntity findAll(@RequestParam(value = "q",required = false,defaultValue = "") String q
+                                ,@RequestParam(value = "page",required = false,defaultValue = "0") int page,
+                              @RequestParam(value = "size",required = false,defaultValue = "10") int size) {
+        Page<Item> all = itemSerchService.findAll(q,page,size);
+        SearchEntity searchEntity = convertObj(all);    //包装page
+        return searchEntity;
     }
     /**
      * 根据id取

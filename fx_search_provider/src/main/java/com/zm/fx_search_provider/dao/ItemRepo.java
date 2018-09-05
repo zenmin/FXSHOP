@@ -1,6 +1,8 @@
 package com.zm.fx_search_provider.dao;
 
 import com.zm.fx_util_common.bean.Item;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 /**
@@ -9,4 +11,5 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
  * @Date 2018/8/29 20:33
  */
 public interface ItemRepo extends ElasticsearchRepository<Item,Integer> {
+    Page<Item> findByTiitleLikeAndDescribleLike(String tiitle,String describle,Pageable pageable);
 }

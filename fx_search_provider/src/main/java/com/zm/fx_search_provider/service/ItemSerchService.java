@@ -9,7 +9,7 @@ import org.springframework.data.domain.Page;
  * @Date 2018/8/30 20:57
  */
 public interface ItemSerchService {
-    Page<Item> findAll(int page,int size);
+    Page<Item> findAll(String q,int page,int size);
     Item findById(Integer id);
     Item save(Item item);
     void delete(Integer id);

@@ -23,7 +23,7 @@ public class ItemSearchController {
     @GetMapping("/search")
     public SearchEntity findAll(@RequestParam(value = "q",required = false,defaultValue = "") String q
                                 ,@RequestParam(value = "page",required = false,defaultValue = "0") int page,
-                              @RequestParam(value = "size",required = false,defaultValue = "10") int size) {
+                              @RequestParam(value = "size",required = false,defaultValue = "12") int size) {
         Page<Item> all = itemSerchService.findAll(q,page,size);
         SearchEntity searchEntity = convertObj(all);    //包装page
         return searchEntity;
@@ -34,7 +34,7 @@ public class ItemSearchController {
      * @return
      */
     @GetMapping("/search/byid/{id}")
-    public Item findById(@PathVariable Integer id) {
+    public Item findById(@PathVariable Long id) {
         Item one = itemSerchService.findById(id);
         return one;
     }

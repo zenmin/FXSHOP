@@ -11,5 +11,6 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
  * @Date 2018/8/29 20:33
  */
 public interface ItemRepo extends ElasticsearchRepository<Item,Integer> {
-    Page<Item> findByTiitleLikeAndDescribleLike(String tiitle,String describle,Pageable pageable);
+    Page<Item> findByTiitle(String tiitle,String name,Pageable pageable);
+    Item findById(Long id);
 }

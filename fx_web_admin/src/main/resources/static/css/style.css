@@ -333,7 +333,7 @@
 .gl-item{ width:238px; height:394px; float:left; border:1px solid #FFFFFF}
 .gl-item .Price b{ font-size:18px; color:#FF0000; }
 .gl-item .Price span{ color:#999999; padding:0px 5px;}
-.gl-item .name{ height:40px; line-height:18px; margin:5px 0px; font-family:"新宋体"}
+.gl-item .name{ height:50px; line-height:18px; margin:5px 0px; font-family:"新宋体"}
 .gl-item .Review{ font-size:14px; margin-bottom:10px; color:#666666}
 .gl-item .Review a{ color:#FF0000; font-size:14px}
 .p-operate{overflow: hidden;margin-bottom: 10px;}

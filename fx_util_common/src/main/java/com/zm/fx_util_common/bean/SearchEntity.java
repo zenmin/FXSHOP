@@ -15,15 +15,24 @@ public class SearchEntity {
     private int size;
     private Sort sort;
     private long num;
+    private int totalPage;
     public static SearchEntity convertObj(Page page){
         SearchEntity searchEntity = new SearchEntity();
         searchEntity.setObject(page.getContent());
         searchEntity.setPage(page.getNumber());
         searchEntity.setSize(page.getSize());
         searchEntity.setSort(page.getSort());
+        searchEntity.setTotalPage(page.getTotalPages());
         long totalElements = page.getTotalElements();
         searchEntity.setNum(totalElements);
         return searchEntity;
+    }
+
+    public int getTotalPage() {
+        return totalPage;
+    }
+    public void setTotalPage(int totalPage) {
+        this.totalPage = totalPage;
     }
     public Object getObject() {
         return object;

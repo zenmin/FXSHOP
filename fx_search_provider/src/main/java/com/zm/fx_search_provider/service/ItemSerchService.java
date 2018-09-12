@@ -10,7 +10,7 @@ import org.springframework.data.domain.Page;
  */
 public interface ItemSerchService {
     Page<Item> findAll(String q,int page,int size);
-    Item findById(Integer id);
+    Item findById(Long id);
     Item save(Item item);
     void delete(Integer id);
     void deleteAll();

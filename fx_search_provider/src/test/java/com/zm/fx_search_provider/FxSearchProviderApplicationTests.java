@@ -1,5 +1,6 @@
 package com.zm.fx_search_provider;
 
+import com.zm.fx_dao_common.dao.ItemDeatilMapper;
 import com.zm.fx_dao_common.dao.ItemMapper;
 import com.zm.fx_search_provider.config.AMQPConfig;
 import com.zm.fx_search_provider.dao.ItemRepo;
@@ -64,7 +65,7 @@ public class FxSearchProviderApplicationTests {
 
     @Test
     public void search1(){
-        Page<Item> page = itemRepo.findByTiitleLikeAndDescribleLike("OPPO", "OPPO",new PageRequest(0, 10));
+        Page<Item> page = itemRepo.findByTiitle("OPPO", "OPPO",new PageRequest(0, 10));
         System.out.println(page.getContent());
     }
 
@@ -82,5 +83,19 @@ public class FxSearchProviderApplicationTests {
         System.out.println(items);
 //        rabbitTemplate.convertAndSend("fxshop.exchange","fxshop.refreshIndex","refreshIndex");
     }
+
+    @Autowired
+    ItemDeatilMapper itemDeatilMapper;
+
+    @Test
+    public void testitemdetail(){
+        com.zm.fx_dao_common.bean.ItemDeatil itemDeatil = new com.zm.fx_dao_common.bean.ItemDeatil();
+        itemDeatil.setItemid("153525467245");
+        com.zm.fx_dao_common.bean.ItemDeatil itemDeatil1 = itemDeatilMapper.selectOne(itemDeatil);
+        System.out.println(itemDeatil1 == null);
+    }
+
+
+
 
 }

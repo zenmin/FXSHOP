@@ -1,12 +1,17 @@
 package com.zm.fx_search_provider.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.zm.fx_dao_common.bean.ItemDeatil;
+import com.zm.fx_dao_common.dao.ItemDeatilMapper;
 import com.zm.fx_dao_common.dao.ItemMapper;
 import com.zm.fx_search_provider.dao.ItemRepo;
 import com.zm.fx_search_provider.service.ItemSerchService;
 import com.zm.fx_util_common.bean.Item;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -20,12 +25,15 @@ import java.util.List;
  * @Date 2018/8/30 20:57
  */
 @Service
+@CacheConfig(cacheNames = "ItemSearch")
 public class ItemSearchSerivceImpl implements ItemSerchService {
 
     @Autowired
     ItemRepo itemRepo;
     @Autowired
     ItemMapper itemMapper;
+    @Autowired
+    ItemDeatilMapper itemDeatilMapper;
     /**
      * 分页查询
      * @param page
@@ -33,11 +41,12 @@ public class ItemSearchSerivceImpl implements ItemSerchService {
      * @return
      */
     @Override
+    @Cacheable(unless = "#q == null")   //q!=null时在缓存
     public Page<Item> findAll(String q,int page, int size) {
         Page<Item> all = null;
         if(StringUtils.isEmpty(q) == false){
-            //根据标题和描述查询
-            all = itemRepo.findByTiitleLikeAndDescribleLike(q, q,new PageRequest(page, size));
+            //根据标题查询
+            all = itemRepo.findByTiitle(q, q,new PageRequest(page, size));
         }else{
             all = itemRepo.findAll(new PageRequest(page, size));
         }
@@ -50,8 +59,9 @@ public class ItemSearchSerivceImpl implements ItemSerchService {
      * @return
      */
     @Override
-    public Item findById(Integer id) {
-        Item one = itemRepo.findOne(id);
+    @Cacheable
+    public Item findById(Long id) {
+        Item one = itemRepo.findById(id);
         return one;
     }
 
@@ -61,6 +71,7 @@ public class ItemSearchSerivceImpl implements ItemSerchService {
      * @return
      */
     @Override
+    @CacheEvict(cacheNames = "ItemSearch")
     public Item save(Item item) {
         Item save = itemRepo.save(item);
         return save;
@@ -71,6 +82,7 @@ public class ItemSearchSerivceImpl implements ItemSerchService {
      * @param id
      */
     @Override
+    @CacheEvict(key = "#id")
     public void delete(Integer id) {
         itemRepo.delete(id);
     }
@@ -79,6 +91,7 @@ public class ItemSearchSerivceImpl implements ItemSerchService {
      * 清空索引库
      */
     @Override
+    @CacheEvict(cacheNames = "ItemSearch")
     public void deleteAll() {
         itemRepo.deleteAll();
     }
@@ -87,6 +100,7 @@ public class ItemSearchSerivceImpl implements ItemSerchService {
      * 更新索引库
      */
     @Override
+    @CacheEvict(cacheNames = "ItemSearch")
     @RabbitListener(queues = "fxshop.index")
     public void updateIndex(String msg) {
         if(msg == null){
@@ -100,6 +114,12 @@ public class ItemSearchSerivceImpl implements ItemSerchService {
             for (Object o : items){
                 try{
                     com.zm.fx_dao_common.bean.Item temp = (com.zm.fx_dao_common.bean.Item) o;
+                    ItemDeatil itemDeatil = new ItemDeatil();
+                    itemDeatil.setItemid(temp.getId());
+                    ItemDeatil it = itemDeatilMapper.selectOne(itemDeatil);
+                    if(it != null){
+                        temp.setDmsg(it.getBigmsg());
+                    }
                     Item item = this.convertBean(temp);
                     Item save = itemRepo.save(item);
                     if(save != null){
@@ -132,13 +152,22 @@ public class ItemSearchSerivceImpl implements ItemSerchService {
         item.setPrice(temp.getPrice());
         item.setImgurl(temp.getImgurl());
         item.setName(temp.getName());
-        item.setImgurl(temp.getImgurl());
+        String imgurl = temp.getImgurl();
+        if(imgurl.startsWith(",")){
+            imgurl = imgurl.substring(1,imgurl.length());
+        }
+        if(imgurl.endsWith(",")){
+            imgurl = imgurl.substring(0,imgurl.length()-1);
+        }
+        item.setImgurl(imgurl);
         item.setDescrible(temp.getDescrible());
         item.setBarcode(temp.getBarcode());
         item.setUpdated(temp.getUpdated());
         item.setCategoryid(temp.getCategoryid());
         item.setCreated(temp.getCreated());
         item.setNum(temp.getNum());
+        item.setDmsg(temp.getDmsg());
         return item;
     }
+
 }

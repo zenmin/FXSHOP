@@ -11,32 +11,13 @@
 <script src="/js/common_js.js" type="text/javascript"></script>
 <script src="/js/footer.js" type="text/javascript"></script>
 <script src="/js/jquery.jumpto.js" type="text/javascript"></script>
+<script src="/plugins/layui/js/product_list.js"></script>
 <title>FXSHOP-产品列表页</title>
 </head>
 <script type="text/javascript" charset="UTF-8">
 <!--
  //点击效果start
- function infonav_more_down(index)
- {
-  var inHeight = ($("div[class='p_f_name infonav_hidden']").eq(index).find('p').length)*30;//先设置了P的高度，然后计算所有P的高度
-  if(inHeight > 60){
-   $("div[class='p_f_name infonav_hidden']").eq(index).animate({height:inHeight});
-   $(".infonav_more").eq(index).replaceWith('<p class="infonav_more"><a class="more"  onclick="infonav_more_up('+index+');return false;" href="javascript:">收起<em class="pulldown"></em></a></p>');
-  }else{
-   return false;
-  }
- }
- function infonav_more_up(index)
- {
-  var infonav_height = 85;
-  $("div[class='p_f_name infonav_hidden']").eq(index).animate({height:infonav_height});
-  $(".infonav_more").eq(index).replaceWith('<p class="infonav_more"> <a class="more" onclick="infonav_more_down('+index+');return false;" href="javascript:">更多<em class="pullup"></em></a></p>');
- }
-   
- function onclick(event) {
-  info_more_down();
- return false;
- }
+
  //点击效果end  
 //-->
 </script>
@@ -119,23 +100,17 @@ $(function() {
    <div class="product_search">
     <input name="" type="text"  class="search_text"  value="请输入你要搜索的产品" onFocus="this.value=''" onBlur="if(!value){value=defaultValue;}"/><input name="" type="submit"  value="" class="search_btn"/>
    </div>
-   <!--页数-->
-   <div class="s_Paging">
-   <span> 1/12</span>
-   <a href="#" class="on">&lt;</a>
-   <a href="#">&gt;</a>
-   </div>
-   </div>
  </div>
  <!--结束-->
  <!--产品列表样式-->
  <div class="p_list  clearfix">
    <ul>
-    <li class="gl-item">
+
+    <li class="gl-item" th:each="item : ${data}">
 	<div class="Borders">
-	 <div class="img"><a href="#"><img src="/Products/P-1.jpg" style="width:220px;height:220px"/></a></div>
-	 <div class="Price"><b>¥89</b><span>[¥49.01/500g]</span></div>
-	 <div class="name"><a href="#">乐事 无限薯片三连装（原味+番茄+烤肉）104g*3/组</a></div>
+	 <div class="img"><a th:href="@{/item/detail/} + ${item.id}"><img th:src="${#strings.substring(item.imgurl,0,73)}" style="width:220px;height:220px"/></a></div>
+	 <div class="Price"><b th:text="${item.price}"></b></div>
+	 <div class="name"><a th:href="@{/item/detail/} + ${item.id}">[[${item.tiitle}]]</a></div>
 	 <div class="Review">已有<a href="#">2345</a>评论</div>
 	 <div class="p-operate">
 	  <a href="#" class="p-o-btn Collect"><em></em>收藏</a>
@@ -143,346 +118,81 @@ $(function() {
 	 </div>
 	 </div>
 	</li>
-	<li class="gl-item">
-	<div class="Borders">
-	 <div class="img"><a href="#"><img src="/Products/P-2.jpg" style="width:220px;height:220px"/></a></div>
-	 <div class="Price"><b>¥89</b><span>[¥49.01/500g]</span></div>
-	 <div class="name"><a href="#">乐事 无限薯片三连装（原味+番茄+烤肉）104g*3/组</a></div>
-	 <div class="Review">已有<a href="#">2345</a>评论</div>
-	 <div class="p-operate">
-	  <a href="#" class="p-o-btn Collect"><em></em>收藏</a>
-	  <a href="#" class="p-o-btn shop_cart"><em></em>加入购物车</a>
-	 </div>
-	 </div>
-	</li>
-	<li class="gl-item">
-	<div class="Borders">
-	 <div class="img"><a href="#"><img src="/Products/P-3.jpg" style="width:220px;height:220px"/></a></div>
-	 <div class="Price"><b>¥89</b><span>[¥49.01/500g]</span></div>
-	 <div class="name"><a href="#">乐事 无限薯片三连装（原味+番茄+烤肉）104g*3/组</a></div>
-	 <div class="Review">已有<a href="#">2345</a>评论</div>
-	 <div class="p-operate">
-	  <a href="#" class="p-o-btn Collect"><em></em>收藏</a>
-	  <a href="#" class="p-o-btn shop_cart"><em></em>加入购物车</a>
-	 </div>
-	 </div>
-	</li>
-	<li class="gl-item">
-	<div class="Borders">
-	 <div class="img"><a href="#"><img src="/Products/P-4.jpg" style="width:220px;height:220px"/></a></div>
-	 <div class="Price"><b>¥89</b><span>[¥49.01/500g]</span></div>
-	 <div class="name"><a href="#">乐事 无限薯片三连装（原味+番茄+烤肉）104g*3/组</a></div>
-	 <div class="Review">已有<a href="#">2345</a>评论</div>
-	 <div class="p-operate">
-	  <a href="#" class="p-o-btn Collect"><em></em>收藏</a>
-	  <a href="#" class="p-o-btn shop_cart"><em></em>加入购物车</a>
-	 </div>
-	 </div>
-	</li>
-	<li class="gl-item">
-	<div class="Borders">
-	 <div class="img"><a href="#"><img src="/Products/P-5.jpg" style="width:220px;height:220px"/></a></div>
-	 <div class="Price"><b>¥89</b><span>[¥49.01/500g]</span></div>
-	 <div class="name"><a href="#">乐事 无限薯片三连装（原味+番茄+烤肉）104g*3/组</a></div>
-	 <div class="Review">已有<a href="#">2345</a>评论</div>
-	 <div class="p-operate">
-	  <a href="#" class="p-o-btn Collect"><em></em>收藏</a>
-	  <a href="#" class="p-o-btn shop_cart"><em></em>加入购物车</a>
-	 </div>
-	 </div>
-	</li>
-	<li class="gl-item">
-	<div class="Borders">
-	 <div class="img"><a href="#"><img src="/Products/P-6.jpg" style="width:220px;height:220px"/></a></div>
-	 <div class="Price"><b>¥89</b><span>[¥49.01/500g]</span></div>
-	 <div class="name"><a href="#">乐事 无限薯片三连装（原味+番茄+烤肉）104g*3/组</a></div>
-	 <div class="Review">已有<a href="#">2345</a>评论</div>
-	 <div class="p-operate">
-	  <a href="#" class="p-o-btn Collect"><em></em>收藏</a>
-	  <a href="#" class="p-o-btn shop_cart"><em></em>加入购物车</a>
-	 </div>
-	 </div>
-	</li>
-	<li class="gl-item">
-	<div class="Borders">
-	 <div class="img"><a href="#"><img src="/Products/P-4.jpg" style="width:220px;height:220px"/></a></div>
-	 <div class="Price"><b>¥89</b><span>[¥49.01/500g]</span></div>
-	 <div class="name"><a href="#">乐事 无限薯片三连装（原味+番茄+烤肉）104g*3/组</a></div>
-	 <div class="Review">已有<a href="#">2345</a>评论</div>
-	 <div class="p-operate">
-	  <a href="#" class="p-o-btn Collect"><em></em>收藏</a>
-	  <a href="#" class="p-o-btn shop_cart"><em></em>加入购物车</a>
-	 </div>
-	 </div>
-	</li>
-	<li class="gl-item">
-	<div class="Borders">
-	 <div class="img"><a href="#"><img src="/Products/P-10.jpg" style="width:220px;height:220px"/></a></div>
-	 <div class="Price"><b>¥89</b><span>[¥49.01/500g]</span></div>
-	 <div class="name"><a href="#">乐事 无限薯片三连装（原味+番茄+烤肉）104g*3/组</a></div>
-	 <div class="Review">已有<a href="#">2345</a>评论</div>
-	 <div class="p-operate">
-	  <a href="#" class="p-o-btn Collect"><em></em>收藏</a>
-	  <a href="#" class="p-o-btn shop_cart"><em></em>加入购物车</a>
-	 </div>
-	 </div>
-	</li>
-	<li class="gl-item">
-	<div class="Borders">
-	 <div class="img"><a href="#"><img src="/Products/P-9.jpg" style="width:220px;height:220px"/></a></div>
-	 <div class="Price"><b>¥89</b><span>[¥49.01/500g]</span></div>
-	 <div class="name"><a href="#">乐事 无限薯片三连装（原味+番茄+烤肉）104g*3/组</a></div>
-	 <div class="Review">已有<a href="#">2345</a>评论</div>
-	 <div class="p-operate">
-	  <a href="#" class="p-o-btn Collect"><em></em>收藏</a>
-	  <a href="#" class="p-o-btn shop_cart"><em></em>加入购物车</a>
-	 </div>
-	 </div>
-	</li>
-	<li class="gl-item">
-	<div class="Borders">
-	 <div class="img"><a href="#"><img src="/Products/P-8.jpg" style="width:220px;height:220px"/></a></div>
-	 <div class="Price"><b>¥89</b><span>[¥49.01/500g]</span></div>
-	 <div class="name"><a href="#">乐事 无限薯片三连装（原味+番茄+烤肉）104g*3/组</a></div>
-	 <div class="Review">已有<a href="#">2345</a>评论</div>
-	 <div class="p-operate">
-	  <a href="#" class="p-o-btn Collect"><em></em>收藏</a>
-	  <a href="#" class="p-o-btn shop_cart"><em></em>加入购物车</a>
-	 </div>
-	 </div>
-	</li>
-	<li class="gl-item">
-	<div class="Borders">
-	 <div class="img"><a href="#"><img src="/Products/P-7.jpg" style="width:220px;height:220px"/></a></div>
-	 <div class="Price"><b>¥89</b><span>[¥49.01/500g]</span></div>
-	 <div class="name"><a href="#">乐事 无限薯片三连装（原味+番茄+烤肉）104g*3/组</a></div>
-	 <div class="Review">已有<a href="#">2345</a>评论</div>
-	 <div class="p-operate">
-	  <a href="#" class="p-o-btn Collect"><em></em>收藏</a>
-	  <a href="#" class="p-o-btn shop_cart"><em></em>加入购物车</a>
-	 </div>
-	 </div>
-	</li>
-	<li class="gl-item">
-	<div class="Borders">
-	 <div class="img"><a href="#"><img src="/Products/P-6.jpg" style="width:220px;height:220px"/></a></div>
-	 <div class="Price"><b>¥89</b><span>[¥49.01/500g]</span></div>
-	 <div class="name"><a href="#">乐事 无限薯片三连装（原味+番茄+烤肉）104g*3/组</a></div>
-	 <div class="Review">已有<a href="#">2345</a>评论</div>
-	 <div class="p-operate">
-	  <a href="#" class="p-o-btn Collect"><em></em>收藏</a>
-	  <a href="#" class="p-o-btn shop_cart"><em></em>加入购物车</a>
-	 </div>
-	 </div>
-	</li>
-	<li class="gl-item">
-	<div class="Borders">
-	 <div class="img"><a href="#"><img src="/Products/P-4.jpg" style="width:220px;height:220px"/></a></div>
-	 <div class="Price"><b>¥89</b><span>[¥49.01/500g]</span></div>
-	 <div class="name"><a href="#">乐事 无限薯片三连装（原味+番茄+烤肉）104g*3/组</a></div>
-	 <div class="Review">已有<a href="#">2345</a>评论</div>
-	 <div class="p-operate">
-	  <a href="#" class="p-o-btn Collect"><em></em>收藏</a>
-	  <a href="#" class="p-o-btn shop_cart"><em></em>加入购物车</a>
-	 </div>
-	 </div>
-	</li>
-	<li class="gl-item">
-	<div class="Borders">
-	 <div class="img"><a href="#"><img src="/Products/P-4.jpg" style="width:220px;height:220px"/></a></div>
-	 <div class="Price"><b>¥89</b><span>[¥49.01/500g]</span></div>
-	 <div class="name"><a href="#">乐事 无限薯片三连装（原味+番茄+烤肉）104g*3/组</a></div>
-	 <div class="Review">已有<a href="#">2345</a>评论</div>
-	 <div class="p-operate">
-	  <a href="#" class="p-o-btn Collect"><em></em>收藏</a>
-	  <a href="#" class="p-o-btn shop_cart"><em></em>加入购物车</a>
-	 </div>
-	 </div>
-	</li>
-	<li class="gl-item">
-	<div class="Borders">
-	 <div class="img"><a href="#"><img src="/Products/P-4.jpg" style="width:220px;height:220px"/></a></div>
-	 <div class="Price"><b>¥89</b><span>[¥49.01/500g]</span></div>
-	 <div class="name"><a href="#">乐事 无限薯片三连装（原味+番茄+烤肉）104g*3/组</a></div>
-	 <div class="Review">已有<a href="#">2345</a>评论</div>
-	 <div class="p-operate">
-	  <a href="#" class="p-o-btn Collect"><em></em>收藏</a>
-	  <a href="#" class="p-o-btn shop_cart"><em></em>加入购物车</a>
-	 </div>
-	 </div>
-	</li>
+
    </ul>
    <div class="Paging">
+     <div id="page" th:text="${page}" style="display: none;"></div>
+       <div id="pageable" style="display: none;">[[${page}]]</div>
      <a href="#" class="pn-prev disabled">&lt;上一页</a>
-	 <a href="#" class="on">1</a>
-	 <a href="#">2</a>
-	 <a href="#">3</a>
-	 <a href="#">4</a>
-	 <a href="#">下一页&gt;</a>
-	 <a href="#">尾页</a>
-	<span class="p-skip"><em>共<b>232</b>页&nbsp;&nbsp;到第</em><input id="page_jump_num" value="1" onkeydown="javascript:if(event.keyCode==13){page_jump();return false;}" class="input-txt"><em>页</em><a href="javascript:page_jump();" class="btn btn-default">确定</a></span>
+       <span id="pages">
+
+       </span>
+	 <a href="#" class="nextpage">下一页&gt;</a>
+	 <a href="#" class="lastpage">尾页</a>
+	<span class="p-skip"><em>共<b th:text="${page.totalPage}"></b>页&nbsp;&nbsp;到第</em><input id="page_jump_num" th:value="${page.page+1}" onkeydown="if(event.keyCode==13){page_jump();return false;}" class="input-txt"><em>页</em><a href="javascript:page_jump();" class="btn btn-default commitpage">确定</a></span>
    </div>
  </div>
  </div>
   </div>
 </div>
+<script>
 
+    $(function () {
+        var page = JSON.parse($("#pageable").text());
+        var q = getUrlParams("q");
+        for(var i=0;i<page.totalPage;i++){
+            var nowpage = i+1;
+            if(i == parseInt(page.page)){
+                $("#pages").append("<a href=/item/search?q="+q + "&page="+ i +"&size=12"+" class='on'>"+nowpage+"</a>")
+            }else{
+                $("#pages").append("<a href=/item/search?q="+q + "&page="+ i +"&size=12"+">"+nowpage+"</a>")
+            }
+        }
+        var prepage = parseInt(page.page)-1;
+        if(prepage < 0){
+            prepage = 0;
+        }
+        var nextpage = parseInt(page.page)+1;
+        var totalPage = parseInt(page.totalPage);
+        if(nextpage > totalPage){
+            prepage = totalPage;
+        }
+        $(".pn-prev").attr("href","/item/search?q="+q + "&page="+ prepage +"&size=12");
+        $(".nextpage").attr("href","/item/search?q="+q +"&page="+ nextpage +"&size=12");
+
+        $(".commitpage").click(function () {
+            var val = $("#page_jump_num").val();
+            if(val != ""){
+                if(parseInt(val) > 0){
+                    var page = parseInt(val)-1;
+                    window.location.href = "/item/search?q="+q+"&page="+ page +"&size=12";
+                }
+            }
+        })
+
+    });
+
+
+    /**获取url中的参数并转换成json格式*/
+    var getUrlParams = function(params){
+        var str=document.URL;
+        var num=str.indexOf("?");
+        str=str.substr(num+1);
+        var arr=str.split("&");
+        for(var i=0;i < arr.length;i++){
+            num=arr[i].indexOf("=");
+            if(num>0){
+                var key=arr[i].substring(0,num);
+                var value=arr[i].substr(num+1);
+                if(key == params){
+                    return value;
+                }
+            }
+        }
+    }
+</script>
  </div>
-  <!--底部样式-->
- <div class="ft_footer_service" id="footer">
-  <div class="footerbox" >
-  <!--底部-->
-  <div class="Menu_style ensure ">
-    <div class="phone">
-      400-3456-333
-    </div>
-    <div class="icon_en">
-     <a href="#" class="icon_link"><img src="/images/footer_icon_31.png" /><span class="left"><h2>退换货</h2>7天无理由退换货</span></a>
-     <a href="#" class="icon_link"><img src="/images/footer_icon_33.png" /><span class="left"><h2>正品保障</h2>企业认证产品</span></a>
-     <a href="#" class="icon_link"><img src="/images/footer_icon_35.png" /><span class="left"><h2>满包邮</h2>满68元包邮</span></a>
-     <a href="#" class="icon_link"><img src="/images/footer_icon_37.png" /><span class="left"><h2>直供产品</h2>厂家直销平台</span></a>
-    </div>
-   </div>
-  </div>
- </div>
- <!--底部样式-->
- <div class="footer">
-  <div class="footerbox clearfix">
-  <div class="clearfix">
-   <div class="left help_link">
-    <dl>
-	 <dt>投保指南</dt>
-	 <dd><a href="#">保险需求测试</a></dd>
-     <dd><a href="#">专题及活动</a></dd>
-     <dd><a href="#">挑选保险产品</a> </dd>
-     <dd><a href="#">常见问题 </a></dd>
-	</dl>
-	<dl>
-	 <dt>保险服务</dt>
-	 <dd><a href="#">保险需求测试</a></dd>
-     <dd><a href="#">专题及活动</a></dd>
-     <dd><a href="#">挑选保险产品</a> </dd>
-     <dd><a href="#">常见问题 </a></dd>
-	</dl>
-	<dl>
-	 <dt>支付方式</dt>
-	 <dd><a href="#">保险需求测试</a></dd>
-     <dd><a href="#">专题及活动</a></dd>
-     <dd><a href="#">挑选保险产品</a> </dd>
-     <dd><a href="#">常见问题 </a></dd>
-	</dl>
-	<dl>
-	 <dt>帮助中心</dt>
-	 <dd><a href="#">保险需求测试</a></dd>
-     <dd><a href="#">专题及活动</a></dd>
-     <dd><a href="#">挑选保险产品</a> </dd>
-     <dd><a href="#">常见问题 </a></dd>
-	</dl>	   
-   </div>
-   <!--信息内容-->
-
-  <!--认证-->
- <!--认证展示样式-->
-<div class="Authenticate left clearfix" id="Authenticate_show">
-  <div class="Authenticate_show">
-  <div class="picMarquee-left">
-			<div class="hd">
-				<a class="next">&lt;</a>
-				<a class="prev">&gt;</a>
-			</div>
-			<div class="bd">
-				<ul class="picList">
-					<li>
-						<div class="pic"><a href="" target="_blank"><img src="/images/pic1.jpg" /></a></div>
-                          <!--<div class="title"><a href="http://www.SuperSlide2.com" target="_blank">效果图1</a></div>-->					
-                    </li>
-					<li>
-						<div class="pic"><a href="" target="_blank"><img src="/images/pic2.jpg" /></a></div>
-						<!--<div class="title"><a href="http://www.SuperSlide2.com" target="_blank">效果图2</a></div>-->
-					</li>
-					<li>
-						<div class="pic"><a href="" target="_blank"><img src="/images/pic3.jpg" /></a></div>
-						
-					</li>
-					<li>
-						<div class="pic"><a href="" target="_blank"><img src="images/pic4.jpg" /></a></div>
-						
-					</li>
-					<li>
-						<div class="pic"><a href="" target="_blank"><img src="images/pic5.jpg" /></a></div>
-						
-					</li>
-					<li>
-						<div class="pic"><a href="" target="_blank"><img src="images/pic6.jpg" /></a></div>
-						
-					</li>
-                    <li>
-						<div class="pic"><a href="" target="_blank"><img src="images/pic6.jpg" /></a></div>
-						
-					</li>
-                    <li>
-						<div class="pic"><a href="" target="_blank"><img src="images/pic6.jpg" /></a></div>
-						
-					</li>
-				</ul>
-			</div>
-		</div>
-
-		<script type="text/javascript">
-		jQuery(".picMarquee-left").slide({mainCell:".bd ul",autoPlay:true,effect:"leftMarquee",vis:2,interTime:50});
-		</script>
-  </div>
-</div>
-  </div>
- <div class="text_link">
-   <p>
-  <a href="#">关于我们</a>｜ <a href="#">公开信息披露</a>｜ <a href="#">加入我们</a>｜ <a href="#">联系我们</a>｜ <a href="#">版权声明</a>｜ <a href="#">隐私声明</a>｜ <a href="#">网站地图</a></p>
-	 <p>蜀ICP备11017033号 Copyright ©2011 成都福际生物技术有限公司 All Rights Reserved. Technical support:CDDGG Group</p>
-  </div>
-  </div>
- </div>
- <!--右侧菜单栏购物车样式-->
-<div class="fixedBox">
-  <ul class="fixedBoxList">
-      <li class="fixeBoxLi user"><a href="#"> <span class="fixeBoxSpan iconfont icon-my"></span> <strong>用户</strong></a> </li>
-    <li class="fixeBoxLi cart_bd" style="display:block;" id="cartboxs">
-		<p class="good_cart">0</p>
-			<span class="fixeBoxSpan iconfont icon-cart"></span> <strong>购物车</strong>
-			<div class="cartBox">
-       		<div class="bjfff"></div><div class="message">购物车内暂无商品，赶紧选购吧</div>    </div></li>
-    <li class="fixeBoxLi Service "> <span class="fixeBoxSpan iconfont icon-qq1"></span> <strong>客服</strong>
-      <div class="ServiceBox">
-        <div class="bjfffs"></div>
-        <dl onclick="javascript:;">
-		    <dt><img src="images/Service1.png"></dt>
-		       <dd><strong>QQ客服1</strong>
-		          <p class="p1">9:00-22:00</p>
-		           <p class="p2"><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=123456&amp;site=DGG三端同步&amp;menu=yes">点击交谈</a></p>
-		          </dd>
-		        </dl>
-				<dl onclick="javascript:;">
-		          <dt><img src="images/Service1.png"></dt>
-		          <dd> <strong>QQ客服1</strong>
-		            <p class="p1">9:00-22:00</p>
-		            <p class="p2"><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=123456&amp;site=DGG三端同步&amp;menu=yes">点击交谈</a></p>
-		          </dd>
-		        </dl>
-	          </div>
-     </li>
-	 <li class="fixeBoxLi code cart_bd " style="display:block;" id="cartboxs">
-			<span class="fixeBoxSpan iconfont icon-weixin"></span> <strong>微信</strong>
-			<div class="cartBox">
-       		<div class="bjfff"></div>
-			<div class="QR_code">
-			 <p><img src="/images/erweim.jpg" width="150px" height="150px" style=" margin-top:10px;" /></p>
-			 <p>微信扫一扫，关注我们</p>
-			</div>		
-			</div>
-			</li>
-
-    <li class="fixeBoxLi Home"> <a href="./"> <span class="fixeBoxSpan iconfont  icon-collect"></span> <strong>收藏</strong> </a> </li>
-    <li class="fixeBoxLi BackToTop"> <span class="fixeBoxSpan iconfont icon-top"></span> <strong>返回顶部</strong> </li>
-  </ul>
-</div>
+<!--引入底部-->
+<div th:replace="fxshop/common/footer"></div>
 </body>
 </html>

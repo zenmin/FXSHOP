@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.zm</groupId>
-    <artifactId>fx_sso</artifactId>
+    <artifactId>fx_sso_provider</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>fx_sso</name>
+    <name>fx_sso_provider</name>
     <description>Demo project for Spring Boot</description>
 
     <parent>
@@ -34,12 +34,33 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>com.zm</groupId>
+            <artifactId>fx_dao_common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-httpclient/commons-httpclient -->
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.0-rc4</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

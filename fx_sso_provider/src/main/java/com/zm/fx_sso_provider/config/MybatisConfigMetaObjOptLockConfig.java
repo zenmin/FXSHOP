@@ -1,4 +1,4 @@
-package com.zm.fx_dao_common.config;
+package com.zm.fx_sso_provider.config;
 
 import com.baomidou.mybatisplus.MybatisConfiguration;
 import com.baomidou.mybatisplus.MybatisXMLLanguageDriver;
@@ -27,7 +27,7 @@ import javax.sql.DataSource;
 public class MybatisConfigMetaObjOptLockConfig {
 
     @Bean("mybatisSqlSession")
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource, ResourceLoader resourceLoader, GlobalConfiguration globalConfiguration) throws Exception {
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource, ResourceLoader resourceLoader, GlobalConfiguration globalConfiguration) throws Exception{
         MybatisSqlSessionFactoryBean sqlSessionFactory = new MybatisSqlSessionFactoryBean();
         sqlSessionFactory.setDataSource(dataSource);
         sqlSessionFactory.setTypeAliasesPackage("com.zm.fx_dao_common.bean");

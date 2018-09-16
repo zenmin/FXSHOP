@@ -27,7 +27,9 @@ public class User  implements Serializable {
 
     private String created;
 
-    public User(Long id, String username, String realname, String password, String phone, Integer phoneispass, String email, Integer emailispass, String address, String lastlogintime, String updated, String created) {
+    private String regcode;
+
+    public User(Long id, String username, String realname, String password, String phone, Integer phoneispass, String email, Integer emailispass, String address, String lastlogintime, String updated, String created,String regcode) {
         this.id = id;
         this.username = username;
         this.realname = realname;
@@ -40,12 +42,19 @@ public class User  implements Serializable {
         this.lastlogintime = lastlogintime;
         this.updated = updated;
         this.created = created;
+        this.regcode = regcode;
     }
 
     public User() {
         super();
     }
 
+    public String getRegcode() {
+        return regcode;
+    }
+    public void setRegcode(String regcode) {
+        this.regcode = regcode;
+    }
     public Long getId() {
         return id;
     }

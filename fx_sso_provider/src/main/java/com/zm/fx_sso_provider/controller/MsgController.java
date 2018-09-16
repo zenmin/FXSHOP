@@ -24,6 +24,4 @@ public class MsgController {
         Map<String, Object> map = msgService.sendMsg(tel);
         return map;
     }
-
-
 }

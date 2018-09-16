@@ -1,6 +1,7 @@
 package com.zm.fx_web_admin.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.zm.fx_util_common.bean.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,12 +18,35 @@ public class RefreSsoService {
     RestTemplate restTemplate;
 
     public JSONObject sendSms(String tel){
-        String forObject = restTemplate.getForObject("http://FXSSOPROVIDER//msg/send/{1}", String.class, tel);
+        String forObject = restTemplate.getForObject("http://FXSSOPROVIDER/msg/send/{1}", String.class, tel);
         JSONObject jsonObject = JSONObject.parseObject(forObject);
         return jsonObject;
     }
 
 
+    public JSONObject checkUsername(String usernmae) {
+        String forObject = restTemplate.getForObject("http://FXSSOPROVIDER/user/checkusername/{1}", String.class, usernmae);
+        JSONObject jsonObject = JSONObject.parseObject(forObject);
+        return jsonObject;
+    }
 
+    public JSONObject regUser(User user) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            restTemplate.put("/user/reguser",user);
+            jsonObject.put("code","200");
+            jsonObject.put("msg","注册成功！");
+        }catch (Exception e){
+            jsonObject.put("code","500");
+            jsonObject.put("msg","注册失败！");
+        }
 
+        return jsonObject;
+    }
+
+    //验证码是否正确
+    public JSONObject checkCode(String code) {
+
+        return null;
+    }
 }

@@ -1,13 +1,11 @@
 package com.zm.fx_web_admin.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.zm.fx_util_common.bean.User;
 import com.zm.fx_web_admin.service.RefreSsoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -27,6 +25,27 @@ public class RefreSsoController {
     @ResponseBody
     public JSONObject sendSms(@PathVariable String tel, HttpSession sessions){
         JSONObject jsonObject = refreSsoService.sendSms(tel);
+        return jsonObject;
+    }
+
+    @GetMapping("/checkcode/{code}")
+    @ResponseBody
+    public JSONObject checkCode(@PathVariable String code){
+        JSONObject jsonObject = refreSsoService.checkCode(code);
+        return jsonObject;
+    }
+
+    @GetMapping("/checkUsername/{usernmae}")
+    @ResponseBody
+    public JSONObject checkUsername(@PathVariable String usernmae){
+        JSONObject jsonObject = refreSsoService.checkUsername(usernmae);
+        return jsonObject;
+    }
+
+    @PutMapping("/reguser")
+    @ResponseBody
+    public JSONObject regUser(User user){
+        JSONObject jsonObject = refreSsoService.regUser(user);
         return jsonObject;
     }
 

@@ -168,4 +168,5 @@ public class User extends Model<User> {
     public void setCreated(Date created) {
         this.created = created;
     }
+
 }

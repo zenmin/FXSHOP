@@ -33,20 +33,14 @@ public class RefreSsoService {
     public JSONObject regUser(User user) {
         JSONObject jsonObject = new JSONObject();
         try {
-            restTemplate.put("/user/reguser",user);
-            jsonObject.put("code","200");
-            jsonObject.put("msg","注册成功！");
+            String s = restTemplate.postForObject("http://FXSSOPROVIDER/user/reguser", user, String.class);
+            jsonObject = JSONObject.parseObject(s);
         }catch (Exception e){
+            e.printStackTrace();
             jsonObject.put("code","500");
             jsonObject.put("msg","注册失败！");
         }
 
         return jsonObject;
-    }
-
-    //验证码是否正确
-    public JSONObject checkCode(String code) {
-
-        return null;
     }
 }

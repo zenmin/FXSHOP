@@ -150,4 +150,23 @@ public class User  implements Serializable {
     public void setCreated(String created) {
         this.created = created;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", realname='" + realname + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", phoneispass=" + phoneispass +
+                ", email='" + email + '\'' +
+                ", emailispass=" + emailispass +
+                ", address='" + address + '\'' +
+                ", lastlogintime='" + lastlogintime + '\'' +
+                ", updated='" + updated + '\'' +
+                ", created='" + created + '\'' +
+                ", regcode='" + regcode + '\'' +
+                '}';
+    }
 }

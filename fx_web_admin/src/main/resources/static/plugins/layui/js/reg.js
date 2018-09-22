@@ -42,6 +42,11 @@ $(function () {
         if(time != 59){
             return;
         }
+        var tel = $(".phonenum").val();
+        if(tel.length < 11){
+            alert("手机号有误！");
+            return;
+        }
         $("#timer").show();
         var sendtimer = setInterval(function () {
             var time = parseInt($("#timer").text());
@@ -55,29 +60,36 @@ $(function () {
             time-=1;
             $("#timer").text(time);
         },"1000");
-        var tel = $(".phonenum").val();
         $.get("/sso/sendmsg/"+tel,{},function (result) {
            console.log(result);
         });
-
-        //注册
-        $("#regbtn").click(function () {
-            var uname = $("#username").val();
-            var pwd = $(".password1").val();
-            //验证码是否正确
+    });
 
 
+    //注册
+    $("#regbtn").click(function () {
+        var uname = $("#username").val();
+        var pwd = $(".password1").val();
+        var tel  = $(".phonenum").val();
+        //验证码是否正确
+        console.log($("#regform").serialize());
 
-            //执行注册
-            if(tel!=""&&uname!=""&&pwd){
-                $.ajax({
-                    method:"PUT",
-                    data:$("#regform").serialize(),
-                    success:function (result) {
-                        console.log(result);
-                    }
-                });
-            }
-        });
+
+        //执行注册
+        if(tel!=""&&uname!=""&&pwd!=""){
+            $.ajax({
+                url:"/sso/reguser",
+                method:"PUT",
+                data:$("#regform").serialize(),
+                success:function (result) {
+                   if(result.code == "200"){
+                      window.location.href = "/fxshop/login";
+                   }else{
+                       $(".codetip").text(result.msg);
+
+                   }
+                }
+            });
+        }
     });
 });

@@ -28,13 +28,6 @@ public class RefreSsoController {
         return jsonObject;
     }
 
-    @GetMapping("/checkcode/{code}")
-    @ResponseBody
-    public JSONObject checkCode(@PathVariable String code){
-        JSONObject jsonObject = refreSsoService.checkCode(code);
-        return jsonObject;
-    }
-
     @GetMapping("/checkUsername/{usernmae}")
     @ResponseBody
     public JSONObject checkUsername(@PathVariable String usernmae){
@@ -45,6 +38,7 @@ public class RefreSsoController {
     @PutMapping("/reguser")
     @ResponseBody
     public JSONObject regUser(User user){
+        System.out.println(user);
         JSONObject jsonObject = refreSsoService.regUser(user);
         return jsonObject;
     }

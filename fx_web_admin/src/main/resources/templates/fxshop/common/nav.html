@@ -11,9 +11,16 @@
             <div class="hd_top_manu clearfix">
                 <ul class="clearfix">
                     <li class="hd_menu_tit zhuce" data-addclass="hd_menu_hover">欢迎光临本店！
-                        <a href="http://127.0.0.1:8000/fxshop/login" class="red">[请登录]</a>
-                        新用户
-                        <a href="#" class="red">[免费注册]</a>
+
+                        <span th:if="${#session.getAttribute('user')} != null ">
+                            <a href="#" class="red" th:text="${#session.getAttribute('user').username}"></a>
+                        </span>
+                        <span th:if="${#session.getAttribute('user')} == null ">
+                            <a href="http://127.0.0.1:8000/fxshop/login" class="red">[请登录]</a>
+                            新用户
+                            <a href="#" class="red">[免费注册]</a>
+                        </span>
+
                     </li>
                     <li class="hd_menu_tit" data-addclass="hd_menu_hover"><a href="#">我的订单</a></li>
                     <li class="hd_menu_tit" data-addclass="hd_menu_hover"> <a href="#">购物车(<b>0</b>)</a> </li>

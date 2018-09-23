@@ -31,4 +31,11 @@ public class UserController {
         return map;
     }
 
+    @PostMapping("/user/login")
+    public Map<String,Object> loginByUser(@RequestBody User user){
+        System.out.println(user);
+        Map<String, Object> map = userService.loginByUser(user);
+        return map;
+    }
+
 }

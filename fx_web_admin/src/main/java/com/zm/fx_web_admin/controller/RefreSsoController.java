@@ -3,10 +3,14 @@ package com.zm.fx_web_admin.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.zm.fx_util_common.bean.User;
 import com.zm.fx_web_admin.service.RefreSsoService;
+import com.zm.fx_web_admin.util.CookieUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -20,6 +24,8 @@ public class RefreSsoController {
 
     @Autowired
     RefreSsoService refreSsoService;
+    @Value("${COOKIEUSER}")
+    private String COOKIEUSER;
 
     @GetMapping("/sendmsg/{tel}")
     @ResponseBody
@@ -43,4 +49,17 @@ public class RefreSsoController {
         return jsonObject;
     }
 
+    //执行登录
+    @PostMapping("/login")
+    @ResponseBody
+    public JSONObject loginByUser(User user, HttpSession session, HttpServletRequest request, HttpServletResponse response){
+        JSONObject jsonObject = refreSsoService.loginByUser(user);
+        if(jsonObject.get("code").equals("200")){
+            JSONObject user1 = (JSONObject) jsonObject.get("user");
+            session.setAttribute("user",jsonObject.get("user"));
+            //cookie把id放进去  方便sso
+            CookieUtils.setCookie(request, response, COOKIEUSER, user1.get("id").toString(), 60 * 30, true);
+        }
+        return jsonObject;
+    }
 }

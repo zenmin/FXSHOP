@@ -4,6 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="/css/common.css" rel="stylesheet" tyle="text/css" />
 <link href="/css/style.css" rel="stylesheet" type="text/css" />
+<script src="/plugins/layui/js/jquery1.12.4.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/plugins/layui/js/login.js"></script>
 <title>用户登录</title>
 </head>
 
@@ -15,7 +17,7 @@
   <!--可修改图层-->
   <div class=" left festival"><a href="#"><img src="/images/logo_yd.png" /></a></div>
   <!--电话图层-->
-  <div class="phone">全国服务热线：<em>400-345-5633</em></div>
+  <div class="phone">全国服务热线：<em>400-000-0000</em></div>
  </div>
 </div>
 <div class="login Narrow">
@@ -26,14 +28,16 @@
 	  <!--提示信息-->
 	    <div class="Prompt">账号密码不能为空！ </div>
 	    <div class="form clearfix">
-	     <div class="item item-fore1"><label for="loginname" class="login-label name-label"></label><input name="" type="text"  class="text" placeholder="请输入用户"/>
+	     <div class="item item-fore1"><label for="loginname" class="login-label name-label"></label><input name="username" type="text"  class="text username" placeholder="请输入用户名或手机号"/>
 		 </div>
-		 <div class="item item-fore2"><label for="nloginpwd" class="login-label pwd-label" ></label><input name="" type="password"  class="text" placeholder="用户密码"/>
-	     </div> 
+		 <div class="item item-fore2"><label for="nloginpwd" class="login-label pwd-label" ></label><input name="password" type="password"  class="text password" placeholder="用户密码"/>
+	     </div>
 	     <div class="Forgetpass"><a href="#">忘记密码？</a></div>
-	    </div>	
+            <div class="Forgetpass logintext" style="float: left;color:red;"></div>
+	    </div>
 	    <div class="login-btn">
-	    <a href="javascript:" class="btn_login">登&nbsp;&nbsp;&nbsp;&nbsp;录</a>
+
+	    <a href="javascript:void(0);" class="btn_login">登&nbsp;&nbsp;&nbsp;&nbsp;录</a>
 	  </div>
     </div>
   </div>

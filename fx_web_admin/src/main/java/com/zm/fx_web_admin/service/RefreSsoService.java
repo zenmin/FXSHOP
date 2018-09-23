@@ -1,6 +1,7 @@
 package com.zm.fx_web_admin.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.zm.fx_util_common.bean.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,4 +44,20 @@ public class RefreSsoService {
 
         return jsonObject;
     }
+
+    @HystrixCommand(fallbackMethod = "loginError")
+    public JSONObject loginByUser(User user) {
+        JSONObject jsonObject = new JSONObject();
+        String s = restTemplate.postForObject("http://FXSSOPROVIDER/user/login", user, String.class);
+        jsonObject = JSONObject.parseObject(s);
+        return jsonObject;
+    }
+
+    public JSONObject loginError(User user) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code","500");
+        jsonObject.put("msg","登录超时，请稍后再试！");
+        return jsonObject;
+    }
+
 }

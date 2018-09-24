@@ -11,6 +11,8 @@
 <script src="/js/common_js.js" type="text/javascript"></script>
 <script src="/js/footer.js" type="text/javascript"></script>
 <script src="/js/jquery.jumpto.js" type="text/javascript"></script>
+<script src="/plugins/layui/js/product_detailed.js" type="text/javascript"></script>
+
 <title>产品名称详细页</title>
 </head>
 
@@ -54,7 +56,7 @@
    </div> 
    <!--信息样式-->
     <div class="textInfo">
-    <form action="javascript:addToCart(97)" name="ECS_FORMBUY" id="ECS_FORMBUY">
+    <form action="" name="ECS_FORMBUY" id="ECS_FORMBUY">
 	  <div class="title"><h1 th:text="${data.tiitle}"></h1><p th:text="${data.describle}"></p></div>
 	  <div class="mod_detailInfo_priceSales">
 	  <div class="margins">
@@ -82,7 +84,7 @@
 		 <div class="P_Quantity">剩余：<span th:text="${data.num}"></span>件</div>
         </dd>
 	  <dd>
-	    <div class="wrap_btn"> <a href="javascript:addToCart_bak(92)" class="wrap_btn1" title="加入购物车"></a> 
+	    <div class="wrap_btn"> <a href="javascript:void(0);" id="cartbtn" class="wrap_btn1" title="加入购物车"></a>
 		  <a href="javascript:addToCart(92)" class="wrap_btn2" title="立即购买"></a> </div>
 		  </dd>
 	  </dl>

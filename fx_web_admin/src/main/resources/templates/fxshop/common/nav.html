@@ -13,10 +13,11 @@
                     <li class="hd_menu_tit zhuce" data-addclass="hd_menu_hover">欢迎光临本店！
 
                         <span th:if="${#session.getAttribute('user')} != null ">
+                            <div th:text="${#session.getAttribute('user').id}" style="display: none;" id="userid"></div>
                             <a href="#" class="red" th:text="${#session.getAttribute('user').username}"></a>
                         </span>
                         <span th:if="${#session.getAttribute('user')} == null ">
-                            <a href="http://127.0.0.1:8000/fxshop/login" class="red">[请登录]</a>
+                            <a href="/fxshop/login" id="loginbtn" class="red">[请登录]</a>
                             新用户
                             <a href="#" class="red">[免费注册]</a>
                         </span>

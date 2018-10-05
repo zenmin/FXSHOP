@@ -106,18 +106,20 @@ $(function() {
  <div class="p_list  clearfix">
    <ul>
 
-    <li class="gl-item" th:each="item : ${data}">
-	<div class="Borders">
-	 <div class="img"><a th:href="@{/item/detail/} + ${item.id}"><img th:src="${#strings.substring(item.imgurl,0,73)}" style="width:220px;height:220px"/></a></div>
-	 <div class="Price"><b th:text="${item.price}"></b></div>
-	 <div class="name"><a th:href="@{/item/detail/} + ${item.id}">[[${item.tiitle}]]</a></div>
-	 <div class="Review">已有<a href="#">2345</a>评论</div>
-	 <div class="p-operate">
-	  <a href="#" class="p-o-btn Collect"><em></em>收藏</a>
-	  <a href="#" class="p-o-btn shop_cart"><em></em>加入购物车</a>
-	 </div>
-	 </div>
-	</li>
+       <li class="gl-item" th:each="item : ${data}">
+           <div class="Borders">
+               <div class="img"><a th:href="@{/item/detail/} + ${item.id}"><img
+                       th:src="${#strings.substring(item.imgurl,0,73)}" style="width:220px;height:220px"/></a></div>
+               <div class="Price"><b th:text="${item.price}"></b></div>
+               <div class="name"><a th:href="@{/item/detail/} + ${item.id}">[[${item.tiitle}]]</a></div>
+               <div class="Review">已有<a href="#">2345</a>评论</div>
+               <div class="p-operate">
+                   <a href="#" class="p-o-btn Collect"><em></em>收藏</a>
+                   <span th:text="${item.id}" style="display: none" class="itemid"></span>
+                   <a href="javascript:void(0);" class="p-o-btn shop_cart" id="addTocart"><em></em>加入购物车</a>
+               </div>
+           </div>
+       </li>
 
    </ul>
    <div class="Paging">
@@ -135,62 +137,6 @@ $(function() {
  </div>
   </div>
 </div>
-<script>
-
-    $(function () {
-        var page = JSON.parse($("#pageable").text());
-        var q = getUrlParams("q");
-        for(var i=0;i<page.totalPage;i++){
-            var nowpage = i+1;
-            if(i == parseInt(page.page)){
-                $("#pages").append("<a href=/item/search?q="+q + "&page="+ i +"&size=12"+" class='on'>"+nowpage+"</a>")
-            }else{
-                $("#pages").append("<a href=/item/search?q="+q + "&page="+ i +"&size=12"+">"+nowpage+"</a>")
-            }
-        }
-        var prepage = parseInt(page.page)-1;
-        if(prepage < 0){
-            prepage = 0;
-        }
-        var nextpage = parseInt(page.page)+1;
-        var totalPage = parseInt(page.totalPage);
-        if(nextpage > totalPage){
-            prepage = totalPage;
-        }
-        $(".pn-prev").attr("href","/item/search?q="+q + "&page="+ prepage +"&size=12");
-        $(".nextpage").attr("href","/item/search?q="+q +"&page="+ nextpage +"&size=12");
-
-        $(".commitpage").click(function () {
-            var val = $("#page_jump_num").val();
-            if(val != ""){
-                if(parseInt(val) > 0){
-                    var page = parseInt(val)-1;
-                    window.location.href = "/item/search?q="+q+"&page="+ page +"&size=12";
-                }
-            }
-        })
-
-    });
-
-
-    /**获取url中的参数并转换成json格式*/
-    var getUrlParams = function(params){
-        var str=document.URL;
-        var num=str.indexOf("?");
-        str=str.substr(num+1);
-        var arr=str.split("&");
-        for(var i=0;i < arr.length;i++){
-            num=arr[i].indexOf("=");
-            if(num>0){
-                var key=arr[i].substring(0,num);
-                var value=arr[i].substr(num+1);
-                if(key == params){
-                    return value;
-                }
-            }
-        }
-    }
-</script>
  </div>
 <!--引入底部-->
 <div th:replace="fxshop/common/footer"></div>

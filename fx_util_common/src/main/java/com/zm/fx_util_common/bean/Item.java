@@ -35,6 +35,11 @@ public class Item  implements Serializable {
 
     private String imgurl;
 
+    private Integer cartNum;    //购物车数量
+
+    private Double cartPrice;    //购物车数量
+
+
     public String getImgurl() {
         return imgurl;
     }
@@ -69,6 +74,14 @@ public class Item  implements Serializable {
         this.imgurl = imgurl;
     }
 
+    public Double getCartPrice() {
+        return cartPrice;
+    }
+
+    public void setCartPrice(Double cartPrice) {
+        this.cartPrice = cartPrice;
+    }
+
     public ItemDeatil getItemDeatil() {
         return itemDeatil;
     }
@@ -91,6 +104,14 @@ public class Item  implements Serializable {
 
     public Long getId() {
         return id;
+    }
+
+    public Integer getCartNum() {
+        return cartNum;
+    }
+
+    public void setCartNum(Integer cartNum) {
+        this.cartNum = cartNum;
     }
 
     public void setId(Long id) {

@@ -16,4 +16,5 @@ public interface ItemService {
     int updateItem(Item item);
     int deleteById(String id);
     int add(Item item);
+    Item findByIdSimple(Long id);
 }

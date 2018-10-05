@@ -84,6 +84,7 @@
 		 <div class="P_Quantity">剩余：<span th:text="${data.num}"></span>件</div>
         </dd>
 	  <dd>
+		  <span id="productid" th:text="${data.id}" style="display: none;"></span>
 	    <div class="wrap_btn"> <a href="javascript:void(0);" id="cartbtn" class="wrap_btn1" title="加入购物车"></a>
 		  <a href="javascript:addToCart(92)" class="wrap_btn2" title="立即购买"></a> </div>
 		  </dd>

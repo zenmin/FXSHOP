@@ -1,6 +1,5 @@
 package com.zm.fx_item_provider.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.zm.fx_dao_common.bean.Item;
 import com.zm.fx_item_provider.service.ItemService;
@@ -43,5 +42,10 @@ public class ItemController {
     public int add(@RequestBody Item item){
         int add = itemService.add(item);
         return add;
+    }
+
+    @GetMapping("/item/findbyidsimple/{id}")
+    public Item findByIdSimple(@PathVariable Long id){
+        return itemService.findByIdSimple(id);
     }
 }

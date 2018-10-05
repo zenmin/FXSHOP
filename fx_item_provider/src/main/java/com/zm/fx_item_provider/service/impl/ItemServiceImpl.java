@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.zm.fx_dao_common.bean.Item;
 import com.zm.fx_dao_common.bean.ItemDeatil;
+import com.zm.fx_dao_common.bean.ItemExample;
 import com.zm.fx_dao_common.dao.ItemDeatilMapper;
 import com.zm.fx_dao_common.dao.ItemMapper;
 import com.zm.fx_item_provider.service.ItemService;
@@ -119,6 +120,21 @@ public class ItemServiceImpl implements ItemService {
         itemDeatilMapper.insert(itemDeatil);
         return insert;
     }
+
+    @Override
+    @Cacheable(key = "#id")
+    public Item findByIdSimple(Long id) {
+        ItemExample itemExample = new ItemExample();
+        ItemExample.Criteria criteria = itemExample.createCriteria();
+        criteria.andIdEqualTo(id);
+        List<Item> items = itemMapper.selectByExample(itemExample);
+        if(items.size()>0){
+            return items.get(0);
+        }else{
+            return null;
+        }
+    }
+
 
     @Async  //异步任务 发送消息 更新索引库
     public void updateIndex(Item item){

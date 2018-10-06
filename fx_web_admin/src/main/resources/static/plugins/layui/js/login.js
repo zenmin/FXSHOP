@@ -2,10 +2,9 @@ $(function () {
    $(".btn_login").click(function () {
        var uname =  $(".username").val();
        var pwd =  $(".password").val();
-       if(uname != "" && pwd != ""){
-            $(".Prompt").hide();
-       }else{
+       if(uname == "" || pwd == ""){
            $(".Prompt").show();
+           return;
        }
        $.ajax({
            url:"/sso/login",

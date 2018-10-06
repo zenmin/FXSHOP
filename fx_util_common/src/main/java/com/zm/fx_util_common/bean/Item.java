@@ -3,8 +3,12 @@ package com.zm.fx_util_common.bean;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.io.Serializable;
+
 @Document(indexName = "items",type = "item")
-public class Item  implements Serializable {
+public class Item implements Serializable {
+
+    private static final long serialVersionUID = 5937949945423522971L;
+
     private Long id;
 
     private Long categoryid;
@@ -37,7 +41,7 @@ public class Item  implements Serializable {
 
     private Integer cartNum;    //购物车数量
 
-    private Double cartPrice;    //购物车数量
+    private Double cartPrice;    //购物车总价
 
 
     public String getImgurl() {
@@ -56,7 +60,7 @@ public class Item  implements Serializable {
         this.dmsg = dmsg;
     }
 
-    public Item(Long id, Long categoryid, String name, String tiitle, String describle, String barcode, Double price, Integer num, Integer status, String updated, String created, ItemDeatil itemDeatil, ItemCategory itemCategory, String dmsg, String imgurl) {
+    public Item(Long id, Long categoryid, String name, String tiitle, String describle, String barcode, Double price, Integer num, Integer status, String updated, String created, ItemDeatil itemDeatil, ItemCategory itemCategory, String dmsg, String imgurl, Integer cartNum, Double cartPrice) {
         this.id = id;
         this.categoryid = categoryid;
         this.name = name;
@@ -72,6 +76,8 @@ public class Item  implements Serializable {
         this.itemCategory = itemCategory;
         this.dmsg = dmsg;
         this.imgurl = imgurl;
+        this.cartNum = cartNum;
+        this.cartPrice = cartPrice;
     }
 
     public Double getCartPrice() {
@@ -216,6 +222,8 @@ public class Item  implements Serializable {
                 ", itemCategory=" + itemCategory +
                 ", dmsg='" + dmsg + '\'' +
                 ", imgurl='" + imgurl + '\'' +
+                ", cartNum=" + cartNum +
+                ", cartPrice=" + cartPrice +
                 '}';
     }
 }

@@ -78,7 +78,6 @@ public class ViewController {
             if(!StringUtils.isEmpty(s)){
                 JSONArray objects = JSONArray.parseArray(s);
                 Object o = objects.get(1);
-                System.out.println(o);
                 //如果用户存在 放session里面
                 session.setAttribute("user",o);
                 model.addAttribute("user",o);

@@ -26,8 +26,14 @@ public class RefreCartService {
 
     //添加购物车信息到redis
     @Async
-    public String addToCartToRedis(String userid, Item item){
-        String forObject = restTemplate.postForObject("http://FXCARTPROVIDER/addToCartToRedis", item,String.class);//直接写提供者名称/rest接口调用远程服务
-        return forObject;
+    public Boolean addToCartToRedis(String userid, Item item){
+        try {
+            restTemplate.put("http://FXCARTPROVIDER/cart/addToCartToRedis/"+userid, item,String.class);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }

@@ -1,12 +1,11 @@
 package com.zm.fx_cart_provider.controller;
 
-import com.zm.fx_cart_provider.service.CartService;
+import com.zm.fx_cart_provider.service.impl.CartServiceImpl;
 import com.zm.fx_util_common.bean.Item;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @Describle This Class Is 购物车处理controller
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CartController {
 
     @Autowired
-    CartService cartService;
+    CartServiceImpl cartService;
 
     @PutMapping("/cart/addToCartToRedis/{userid}")
     public boolean addToCartToRedis(@PathVariable String userid,@RequestBody Item item){
@@ -25,5 +24,10 @@ public class CartController {
         return b;
     }
 
-
+    //根据用户id查询购物车信息
+    @GetMapping("/cart/queryCart/{userid}")
+    public List<Item> queryCart(@PathVariable String userid){
+        List<Item> userCarts = cartService.queryCart(userid);
+        return userCarts;
+    }
 }

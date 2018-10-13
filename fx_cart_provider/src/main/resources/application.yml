@@ -8,4 +8,4 @@ eureka:
   instance:
           prefer-ip-address: true #注册的时候使用ip地址注册
 server:
-  port: 8085
+  port: 8005

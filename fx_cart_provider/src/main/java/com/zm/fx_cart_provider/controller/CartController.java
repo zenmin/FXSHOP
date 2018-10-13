@@ -1,6 +1,6 @@
 package com.zm.fx_cart_provider.controller;
 
-import com.zm.fx_cart_provider.service.impl.CartServiceImpl;
+import com.zm.fx_cart_provider.service.CartService;
 import com.zm.fx_util_common.bean.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ import java.util.List;
 public class CartController {
 
     @Autowired
-    CartServiceImpl cartService;
+    CartService cartService;
 
     @PutMapping("/cart/addToCartToRedis/{userid}")
     public boolean addToCartToRedis(@PathVariable String userid,@RequestBody Item item){

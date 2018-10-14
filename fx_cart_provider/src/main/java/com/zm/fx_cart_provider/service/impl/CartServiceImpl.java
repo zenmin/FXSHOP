@@ -66,4 +66,23 @@ public class CartServiceImpl implements CartService {
         });
         return result;
     }
+
+    @Override
+    public boolean updateToCartToRedis(String userid, Long itemid, Integer num) {
+        //取当前用户购物车当前商品
+        ValueOperations valueOperations = redisTemplate.opsForValue();
+        Object o = valueOperations.get(CART + userid + ":" + itemid);
+        if(o !=null){
+            Item item = JSONObject.parseObject(o.toString(), Item.class);
+            Double price = item.getPrice();
+            double allPrice = price * num;
+            item.setCartPrice(allPrice);
+            item.setCartNum(num);
+            String itemJson = JSONObject.toJSONString(item);    //转jsonString  不然反序列化报错
+            valueOperations.set(CART + userid + ":" + itemid,itemJson);
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

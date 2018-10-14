@@ -12,4 +12,5 @@ import java.util.List;
 public interface CartService {
     boolean addToCartToRedis(String userid,Item item);
     List<Item> queryCart(String userid);
+    boolean updateToCartToRedis(String userid, Long itemid, Integer num);
 }

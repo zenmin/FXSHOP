@@ -40,6 +40,19 @@ public class RefreCartService {
         return true;
     }
 
+
+    //更新购物车信息到redis
+    @Async
+    public Boolean updateToCartToRedis(String userid, Long itemid,Integer num){
+        try {
+            restTemplate.getForObject("http://FXCARTPROVIDER/cart/updateToCartToRedis/{1}/{2}/{3}",String.class,userid,itemid,num);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
     public List<Item> getCart(String userid) {
         JSONArray forObject = restTemplate.getForObject("http://FXCARTPROVIDER/cart/queryCart/{1}", JSONArray.class, userid);
         List<Item> items = forObject.toJavaList(Item.class);

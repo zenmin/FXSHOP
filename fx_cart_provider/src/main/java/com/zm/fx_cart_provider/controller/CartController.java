@@ -30,4 +30,10 @@ public class CartController {
         List<Item> userCarts = cartService.queryCart(userid);
         return userCarts;
     }
+
+    @GetMapping("/cart/updateToCartToRedis/{userid}/{itemid}/{num}")
+    public boolean updateToCartToRedis(@PathVariable String userid,@PathVariable Long itemid,@PathVariable Integer num){
+        boolean b = cartService.updateToCartToRedis(userid, itemid,num);
+        return b;
+    }
 }

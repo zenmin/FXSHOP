@@ -4,14 +4,18 @@ import com.alibaba.fastjson.JSONObject;
 import com.zm.fx_util_common.bean.Item;
 import com.zm.fx_util_common.bean.UserCart;
 import com.zm.fx_web_admin.service.RefreCartService;
+import com.zm.fx_web_admin.service.ViewService;
 import com.zm.fx_web_admin.util.CookieUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +24,7 @@ import java.util.List;
  * @Author ZengMin
  * @Date 2018/9/26 15:04
  */
-@RestController
+@Controller
 @RequestMapping("/cart")
 public class RefreCartController {
 
@@ -30,7 +34,11 @@ public class RefreCartController {
     @Value("${COOKIECART}")
     private String COOKIECART;
 
+    @Autowired
+    ViewService viewService;
+
     @PostMapping("/add")
+    @ResponseBody
     public JSONObject addToCart(String userid, Long productid, HttpServletResponse response, HttpServletRequest request){
         Item item = refreCartService.getItem(userid, productid);
         JSONObject jsonObject = new JSONObject();
@@ -77,8 +85,7 @@ public class RefreCartController {
             //如果不为空
             UserCart userCart = JSONObject.parseObject(cookieValue, UserCart.class);
             List<Item> items = userCart.getItems();
-            Item temp = new Item();          //准备一个item
-
+            Item temp;          //准备一个item
             //遍历Cookie
             for(Item i : items){
                 //如果购物车中该商品已经存在  加数量 变价格
@@ -113,6 +120,7 @@ public class RefreCartController {
 
     //从redis中获取购物车信息  防止用户清掉Cookie
     @GetMapping("/queryCart/{userid}")
+    @ResponseBody
     public List<Item> queryCart(@PathVariable String userid, HttpServletResponse response, HttpServletRequest request){
         List<Item> list =  refreCartService.getCart(userid);
         //如果服务器上购物车信息存在
@@ -125,5 +133,78 @@ public class RefreCartController {
             CookieUtils.setCookie(request,response,COOKIECART,userCartJson,-1,"UTF-8");
         }
         return list;
+    }
+
+    @GetMapping("/toCart")
+    public String toCart(Model model, HttpSession session,HttpServletRequest request){
+        //取用户信息
+        viewService.getUserMsg(model,session,request);
+        Object user = session.getAttribute("user");
+        if(user == null){
+            model.addAttribute("errorMsg","登录已经失效 请重新登录!");
+            return "/fxshop/login";
+        }else{
+            JSONObject user1 = JSONObject.parseObject(user.toString());
+            String cookieValue = CookieUtils.getCookieValue(request, COOKIECART,"UTF-8");
+            //如果不为空
+            UserCart userCart = JSONObject.parseObject(cookieValue, UserCart.class);
+            if(userCart.getUserid().equals(user1.get("id").toString())){
+                //是此用户的购物车
+                List<Item> items = userCart.getItems();
+                model.addAttribute("cart",items);
+            }else{
+                //从redis取当前用户购物车
+                List<Item> list =  refreCartService.getCart(user1.get("id").toString());
+                //如果服务器上购物车信息存在
+                if(list.size() >0){
+                    model.addAttribute("cart",list);
+                }else{
+                    model.addAttribute("errorMsg","购物车信息不存在！");
+                    return "/";
+                }
+            }
+            return "fxshop/shop_cart";
+        }
+    }
+
+    /**
+     * @param session
+     * @param request
+     * @param type 1加减 2删除
+     * @return
+     */
+    @PostMapping("/udpateCart")
+    @ResponseBody
+    public boolean updateCart(HttpSession session,HttpServletResponse response,HttpServletRequest request,Integer type,Long itemid,Integer num){
+        String cookieValue = CookieUtils.getCookieValue(request, COOKIECART,"UTF-8");
+        UserCart userCart = JSONObject.parseObject(cookieValue, UserCart.class);
+        String userid = userCart.getUserid();
+        List<Item> items = userCart.getItems();
+        switch (type){
+             case 1:
+                 List<Item> newCookieItem = new ArrayList<>();
+                 items.stream().forEach( o ->{
+                     Long id = o.getId();
+                     if(itemid.equals(id)){
+                         Double price = o.getPrice();
+                         o.setCartNum(num);
+                         o.setCartPrice(price * num);
+                         refreCartService.updateToCartToRedis(userid,itemid,num);//更新服务器商品数量
+                     }
+                     newCookieItem.add(o);
+                 });
+                 userCart.setItems(newCookieItem);
+
+
+
+                 break;
+             case 2:
+
+                 break;
+         }
+
+        String userCartJson = JSONObject.toJSONString(userCart);
+        CookieUtils.setCookie(request,response,COOKIECART,userCartJson,-1,"UTF-8");
+        return true;
     }
 }

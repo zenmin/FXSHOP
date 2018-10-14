@@ -3,6 +3,18 @@ $(function () {
     $(document).ready(function () {
         refreCart();
     });
+
+    $("#btn-payforgoods").click(function () {
+        var COOKIECART = $.cookie('COOKIECART');
+        if(COOKIECART == null){
+            alert("购物车中没有任何商品!");
+
+        }else{
+            window.location.href = "/cart/toCart";
+        }
+    });
+
+
 });
 var that = this;
 function refreCart() {

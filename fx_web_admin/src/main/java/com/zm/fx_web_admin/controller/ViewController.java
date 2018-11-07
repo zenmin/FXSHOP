@@ -53,5 +53,4 @@ public class ViewController {
         viewService.getUserMsg(model,session,request);
         return "fxshop/index";
     }
-
 }

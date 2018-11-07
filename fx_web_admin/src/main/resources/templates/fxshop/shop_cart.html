@@ -13,13 +13,33 @@
 <script src="/js/footer.js" type="text/javascript"></script>
 <script src="/js/jquery.jumpto.js" type="text/javascript"></script>
 <script src="/plugins/layui/js/shop_cart.js"></script>
+    <!--artdiolag-->
+<script type="text/javascript" src="/js/diag/artDialog4_jb51net/jquery.artDialog.js"></script>
+<script type="text/javascript" src="/js/diag/artDialog4_jb51net/artDialog.iframe.js"></script>
+<link rel="stylesheet" type="text/css" href="/js/diag/artDialog4_jb51net/skins/default.css"/>
+<script type="text/javascript" src="/js/diag/common.js"></script>
+<script type="text/javascript" src="/js/diag/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="/js/diag/jquery.fullPage.min.js"></script>
+<script src="/js/diag/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 <title>购物车</title>
 </head>
+<script type="text/javascript">
+    function ifeame(title,url){
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['960px', '680px'],
+            content: url
+        });
+    }
+</script>
 <body>
  <div id="header_top">
 	 <!--引入首部-->
 	 <div th:replace="fxshop/common/nav"></div>
-   <!--样式-->
 <!--购物车样式图层-->
 <div class="Inside_pages">
  <div class="shop_carts">
@@ -74,8 +94,9 @@
     <li class="p_Total"><label class="text">商品总价：</label><span class="price sumPrice" id="Total_price"></span></li>
     <li class="integral">本次购物可获得<b id="total_points"></b>积分</li>
     </ul>
-	<div class="btn"><a class="cartsubmit" href="Orders.html"></a><a class="continueFind" href="Orders.html"></a></div>
-  </div>
+        <div class="btn"><a class="cartsubmit" href="javascript:void(0);" onclick="ifeame('确认订单','/fxshop/order_address')"></a>
+            <a class="continueFind" href="javascript:window.history.back()"></a></div>
+    </div>
   </div>
    </form>
  </div>

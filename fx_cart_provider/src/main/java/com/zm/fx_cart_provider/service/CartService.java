@@ -13,4 +13,5 @@ public interface CartService {
     boolean addToCartToRedis(String userid,Item item);
     List<Item> queryCart(String userid);
     boolean updateToCartToRedis(String userid, Long itemid, Integer num);
+    boolean deleteCartToRedis(Long userid, String itemid);
 }

@@ -58,6 +58,10 @@ function refreCart() {
             $("#p_s_list_count .parice").text(allPrice);
             $("#p_s_list_count .count").text(allCount);
         }
+    }else{
+        $.get("/cart/queryCart/"+ userid,{},function () {
+            console.log("已刷新购物车");
+        });
     }
 
 }

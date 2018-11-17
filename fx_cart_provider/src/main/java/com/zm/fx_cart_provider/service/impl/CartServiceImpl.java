@@ -85,4 +85,11 @@ public class CartServiceImpl implements CartService {
             return false;
         }
     }
+
+    @Override
+    public boolean deleteCartToRedis(Long userid, String itemid) {
+        String key = CART + userid + ":" + itemid;
+        Boolean delete = redisTemplate.delete(key);
+        return delete;
+    }
 }

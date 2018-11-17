@@ -96,6 +96,43 @@ $(document).ready(function () {
         });
         });
 
+    //删除
+    $(".deleteCart").click(function () {
+        var itemid = $(this).parent().parent().parent().find("#itemid").text();
+        var othis = $(this);
+        $.post("/cart/udpateCart",{itemid:itemid,type:2},function (result) {
+            if(result){
+                othis.parent().parent().parent().remove();
+                that.refreCart();
+                var allPrice = $("#p_s_list_count .parice").text();
+                $("#Total_price").text('￥'+allPrice);
+                $("#total_points").text(Math.floor(allPrice/10));
+                $(this).parent().parent().parent().remove();
+            }else{
+                alert("服务器繁忙，请稍后再试！")
+            }
+        });
+    });
+
+    //提交订单
+    $(".cartsubmit").click(function () {
+        var ids = new Set();
+        $.each($(".table_list tr"),function (index,item) {
+            if($(item).find(":checkbox").eq(0).attr("checked") == "checked"){
+                var itemId = $(item).find("#itemid").eq(0).text();
+                ids.add(itemId);
+            }
+        });
+        if(ids.size == 0){
+            alert("你未选择任何商品！");
+            return;
+        }
+        try {
+            ifeame('确认订单','/fxshop/order_address');
+        }catch (e) {
+        }
+    });
+
 
 });
 var that = this;
@@ -112,7 +149,6 @@ function refreCart() {
             $("#p_s_list").empty();
             var allPrice = 0.0;
             var allCount = 0;
-            console.log(i);
             $.each(i, function (index, item) {
                 var title = item.tiitle;
                 if (item.tiitle.length > 15) {
@@ -136,5 +172,9 @@ function refreCart() {
             $("#p_s_list_count .parice").text(allPrice);
             $("#p_s_list_count .count").text(allCount);
         }
+    }else{
+        $.get("/cart/queryCart/"+ userid,{},function () {
+            console.log("已刷新购物车");
+        });
     }
 }

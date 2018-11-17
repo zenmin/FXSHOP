@@ -40,6 +40,7 @@
  <div id="header_top">
 	 <!--引入首部-->
 	 <div th:replace="fxshop/common/nav"></div>
+ </div>
 <!--购物车样式图层-->
 <div class="Inside_pages">
  <div class="shop_carts">
@@ -77,7 +78,7 @@
 	</td>
 	<td class="xj" ><span id="total_price_text" th:text="'￥'+${c.cartPrice}"></span><input type="hidden" name="total_price" id="total_price" th:value="${c.cartPrice}"></td>
 	<td class="cz">
-	 <p><a href="#">删除</a><P>
+	 <p><a href="javascript:void(0);" class="deleteCart">删除</a><P>
 	 <p><a href="#">收藏该商品</a></p>
 	</td>
    </tr>
@@ -94,7 +95,7 @@
     <li class="p_Total"><label class="text">商品总价：</label><span class="price sumPrice" id="Total_price"></span></li>
     <li class="integral">本次购物可获得<b id="total_points"></b>积分</li>
     </ul>
-        <div class="btn"><a class="cartsubmit" href="javascript:void(0);" onclick="ifeame('确认订单','/fxshop/order_address')"></a>
+        <div class="btn"><a class="cartsubmit" href="javascript:void(0);" onclick=""></a>
             <a class="continueFind" href="javascript:window.history.back()"></a></div>
     </div>
   </div>

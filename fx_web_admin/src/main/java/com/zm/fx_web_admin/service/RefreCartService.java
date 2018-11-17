@@ -58,4 +58,16 @@ public class RefreCartService {
         List<Item> items = forObject.toJavaList(Item.class);
         return items;
     }
+
+    //删除购物车信息到redis
+    @Async
+    public Boolean deleteCartToRedis(String userid, Long itemid){
+        try {
+            restTemplate.delete("http://FXCARTPROVIDER/cart/deleteCartToRedis/{1}/{2}",userid,itemid);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }

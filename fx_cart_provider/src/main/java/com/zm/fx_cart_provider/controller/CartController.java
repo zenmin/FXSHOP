@@ -36,4 +36,10 @@ public class CartController {
         boolean b = cartService.updateToCartToRedis(userid, itemid,num);
         return b;
     }
+
+    @DeleteMapping("/cart/deleteCartToRedis/{userid}/{itemid}")
+    public boolean deleteCartToRedis(@PathVariable Long userid,@PathVariable String itemid){
+        boolean b = cartService.deleteCartToRedis(userid, itemid);
+        return b;
+    }
 }

@@ -151,6 +151,10 @@ public class RefreCartController {
             if(userCart.getUserid().equals(user1.get("id").toString())){
                 //是此用户的购物车
                 List<Item> items = userCart.getItems();
+                if(items.size() == 0){
+                    //从redis取当前用户购物车
+                    items =  refreCartService.getCart(user1.get("id").toString());
+                }
                 model.addAttribute("cart",items);
             }else{
                 //从redis取当前用户购物车
@@ -194,11 +198,17 @@ public class RefreCartController {
                      newCookieItem.add(o);
                  });
                  userCart.setItems(newCookieItem);
-
-
-
                  break;
              case 2:
+                 List<Item> newCookieItemDel = new ArrayList<>();
+                 items.stream().forEach( o ->{
+                     Long id = o.getId();
+                     if(!itemid.equals(id)){
+                         newCookieItemDel.add(o);
+                     }
+                 });
+                 refreCartService.deleteCartToRedis(userid,itemid);//删除服务器端购物车商品
+                 userCart.setItems(newCookieItemDel);
 
                  break;
          }

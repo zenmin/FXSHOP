@@ -22,25 +22,30 @@ function refreCart() {
     var userid = $("#userid").text();
     //先从cookie取
     var COOKIECART = $.cookie('COOKIECART');
-    if(COOKIECART != null){
+    var cartitem = JSON.parse(COOKIECART);
+    console.log(cartitem.items.length);
+    if(cartitem.items.length != 0){
         this.setCart(COOKIECART,userid);
     }else{
         //cart服务器获取购物车信息
         $.get("/cart/queryCart/"+userid,{},function (result) {
+            console.log(result);
             //同步服务器和cookie数据
-            var COOKIECART = $.cookie('COOKIECART');
-            if(COOKIECART != null){
-                that.setCart(COOKIECART,userid);
-            }else {
+            var obj = {};
+            obj.userid = userid;
+            obj.items = result;
+            that.setCart(obj,userid);
 
-            }
         });
     }
 }
 
 function setCart(COOKIECART,userid) {
 
-    var items = JSON.parse(COOKIECART);
+    var items = COOKIECART;
+    if(items.userid == undefined){
+        items = JSON.parse(COOKIECART);
+    }
     var cookieUser = items.userid;
     if(userid == cookieUser){
         var i = items.items;

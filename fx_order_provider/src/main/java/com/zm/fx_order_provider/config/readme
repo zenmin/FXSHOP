@@ -1,0 +1,7 @@
+这里两个配置类  需要在provider下重写一次
+
+因为我们在dao_common中写的配置类  在provider启动的时候  不会被扫描到
+
+本模块启动的时候 扫描的是com.zm.fx_item_provider.*
+
+而我们的配置类写在com.zm.fx_dao_common.config.*下

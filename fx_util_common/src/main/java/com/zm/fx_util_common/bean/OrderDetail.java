@@ -19,6 +19,12 @@ public class OrderDetail  implements Serializable {
 
     private String created;
 
+    private String addressid;
+
+    private String itemid;
+
+    private String type;
+
     public OrderDetail(Long id, Long orderid, Long userid, String username, String userphone, String useraddress, String updated, String created) {
         this.id = id;
         this.orderid = orderid;
@@ -96,5 +102,29 @@ public class OrderDetail  implements Serializable {
 
     public void setCreated(String created) {
         this.created = created;
+    }
+
+    public String getAddressid() {
+        return addressid;
+    }
+
+    public void setAddressid(String addressid) {
+        this.addressid = addressid;
+    }
+
+    public String getItemid() {
+        return itemid;
+    }
+
+    public void setItemid(String itemid) {
+        this.itemid = itemid;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

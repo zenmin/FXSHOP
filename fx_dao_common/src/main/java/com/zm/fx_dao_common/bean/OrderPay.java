@@ -23,6 +23,8 @@ public class OrderPay extends Model<OrderPay> {
 
     private Date created;
 
+    private String payway;
+
     public OrderPay(Long id, Long userid, String payid, Long orderid, Double allprice, Integer status, Date updated, Date created) {
         this.id = id;
         this.userid = userid;
@@ -119,5 +121,13 @@ public class OrderPay extends Model<OrderPay> {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public String getPayway() {
+        return payway;
+    }
+
+    public void setPayway(String payway) {
+        this.payway = payway;
     }
 }

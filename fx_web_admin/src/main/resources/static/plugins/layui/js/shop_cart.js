@@ -116,6 +116,7 @@ $(document).ready(function () {
 
     //提交订单
     $(".cartsubmit").click(function () {
+        var userid = $("#userid").text();
         var ids = new Set();
         $.each($(".table_list tr"),function (index,item) {
             if($(item).find(":checkbox").eq(0).attr("checked") == "checked"){
@@ -128,7 +129,12 @@ $(document).ready(function () {
             return;
         }
         try {
-            ifeame('确认订单','/fxshop/order_address');
+            var idString = "";
+            for(var i of ids){
+                idString +=i +",";
+            }
+            idString = idString.substring(0,idString.length-1);
+            ifeame('确认订单','/order/address?ids='+idString+"&userid="+userid);
         }catch (e) {
         }
     });

@@ -31,6 +31,8 @@ public class Order extends Model<Order> {
 
     private Date created;
 
+    private String payway;
+
     @Override
     public String toString() {
         return "Order{" +
@@ -145,7 +147,7 @@ public class Order extends Model<Order> {
         this.nowprice = nowprice;
     }
 
-    public String getPayid() {
+    public String getPaywid() {
         return payid;
     }
 
@@ -167,5 +169,13 @@ public class Order extends Model<Order> {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public String getPayway() {
+        return payway;
+    }
+
+    public void setPayway(String payway) {
+        this.payway = payway;
     }
 }

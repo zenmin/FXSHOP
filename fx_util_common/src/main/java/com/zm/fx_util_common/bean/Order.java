@@ -28,7 +28,9 @@ public class Order  implements Serializable {
 
     private String created;
 
-    public Order(Long id, Long userid, Integer status, String starttime, String endtime, String activity, Double allprice, Double oldprice, Double nowprice, String payid, String updated, String created) {
+    private String payway;
+
+    public Order(Long id, Long userid, Integer status, String starttime, String endtime, String activity, Double allprice, Double oldprice, Double nowprice, String payid, String updated, String created, String payway) {
         this.id = id;
         this.userid = userid;
         this.status = status;
@@ -41,6 +43,7 @@ public class Order  implements Serializable {
         this.payid = payid;
         this.updated = updated;
         this.created = created;
+        this.payway = payway;
     }
 
     public Order() {
@@ -141,5 +144,13 @@ public class Order  implements Serializable {
 
     public void setCreated(String created) {
         this.created = created;
+    }
+
+    public String getPayway() {
+        return payway;
+    }
+
+    public void setPayway(String payway) {
+        this.payway = payway;
     }
 }

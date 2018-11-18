@@ -19,7 +19,9 @@ public class OrderPay  implements Serializable {
 
     private String created;
 
-    public OrderPay(Long id, Long userid, String payid, Long orderid, Double allprice, Integer status, String updated, String created) {
+    private String payway;
+
+    public OrderPay(Long id, Long userid, String payid, Long orderid, Double allprice, Integer status, String updated, String created, String payway) {
         this.id = id;
         this.userid = userid;
         this.payid = payid;
@@ -28,6 +30,7 @@ public class OrderPay  implements Serializable {
         this.status = status;
         this.updated = updated;
         this.created = created;
+        this.payway = payway;
     }
 
     public OrderPay() {
@@ -96,5 +99,13 @@ public class OrderPay  implements Serializable {
 
     public void setCreated(String created) {
         this.created = created;
+    }
+
+    public String getPayway() {
+        return payway;
+    }
+
+    public void setPayway(String payway) {
+        this.payway = payway;
     }
 }

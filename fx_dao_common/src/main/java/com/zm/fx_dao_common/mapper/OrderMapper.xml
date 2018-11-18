@@ -13,6 +13,7 @@
       <arg column="oldprice" javaType="java.lang.Double" jdbcType="DOUBLE" />
       <arg column="nowprice" javaType="java.lang.Double" jdbcType="DOUBLE" />
       <arg column="payid" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="payway" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="updated" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="created" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
@@ -118,7 +119,8 @@
     values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, 
       #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, #{activity,jdbcType=VARCHAR}, 
       #{allprice,jdbcType=DOUBLE}, #{oldprice,jdbcType=DOUBLE}, #{nowprice,jdbcType=DOUBLE}, 
-      #{payid,jdbcType=VARCHAR}, #{updated,jdbcType=TIMESTAMP}, #{created,jdbcType=TIMESTAMP}
+      #{payid,jdbcType=VARCHAR}, #{updated,jdbcType=TIMESTAMP}, #{created,jdbcType=TIMESTAMP},
+      #{payway,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.zm.fx_dao_common.bean.Order">
@@ -198,6 +200,9 @@
       <if test="created != null">
         #{created,jdbcType=TIMESTAMP},
       </if>
+      <if test="payway != null">
+        #{payway,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.zm.fx_dao_common.bean.OrderExample" resultType="java.lang.Long">
@@ -245,6 +250,9 @@
       <if test="record.created != null">
         created = #{record.created,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.payway!= null">
+        payway = #{record.payway,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -263,7 +271,8 @@
       nowprice = #{record.nowprice,jdbcType=DOUBLE},
       payid = #{record.payid,jdbcType=VARCHAR},
       updated = #{record.updated,jdbcType=TIMESTAMP},
-      created = #{record.created,jdbcType=TIMESTAMP}
+      created = #{record.created,jdbcType=TIMESTAMP},
+      payway = #{record.payway,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -304,6 +313,9 @@
       <if test="created != null">
         created = #{created,jdbcType=TIMESTAMP},
       </if>
+      <if test="payid != null">
+        payway = #{payway,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -320,6 +332,7 @@
       payid = #{payid,jdbcType=VARCHAR},
       updated = #{updated,jdbcType=TIMESTAMP},
       created = #{created,jdbcType=TIMESTAMP}
+      payway = #{payway,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

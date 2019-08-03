@@ -1,12 +1,12 @@
 package com.zm.fx_web_admin.controller;
 
 import com.zm.fx_util_common.bean.OrderDetail;
+import com.zm.fx_util_common.util.MapUtil;
 import com.zm.fx_web_admin.service.RefreOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Map;
 
 /**
@@ -31,8 +31,8 @@ public class RefreOrderController {
 
     @PostMapping("/addOrder")
     @ResponseBody
-    public Map<String,String> addOrder(OrderDetail orderDetail){
+    public Map<String,Object> addOrder(OrderDetail orderDetail){
         refreOrderServcie.addOrder(orderDetail);
-        return null;
+        return MapUtil.ResponseSuccess();
     }
 }

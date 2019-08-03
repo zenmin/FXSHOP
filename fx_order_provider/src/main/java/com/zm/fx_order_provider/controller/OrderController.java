@@ -2,6 +2,7 @@ package com.zm.fx_order_provider.controller;
 
 import com.zm.fx_order_provider.service.OrderService;
 import com.zm.fx_util_common.bean.OrderDetail;
+import com.zm.fx_util_common.util.MapUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,9 +22,14 @@ public class OrderController {
     OrderService orderService;
 
     @PostMapping("/order/addOrder")
-    public Map<String,String> addOrder(@RequestBody OrderDetail orderDetail){
+    public Map<String,Object> addOrder(@RequestBody OrderDetail orderDetail){
         boolean b = orderService.addOrder(orderDetail);
-        return null;
+        if(b){
+            return MapUtil.ResponseSuccess();
+        }
+        return MapUtil.ResponseError();
     }
+
+
 
 }
